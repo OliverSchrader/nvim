@@ -79,7 +79,10 @@ require('lazy').setup({
     'neovim/nvim-lspconfig',
     dependencies = {
       -- Automatically install LSPs to stdpath for neovim
-      { 'williamboman/mason.nvim', config = true },
+      {
+        'williamboman/mason.nvim',
+        config = true,
+      },
       'williamboman/mason-lspconfig.nvim',
 
       -- Useful status updates for LSP
@@ -108,7 +111,7 @@ require('lazy').setup({
   },
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim', opts = {} },
+  { 'folke/which-key.nvim',          opts = {} },
   {
     -- Adds git releated signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -122,7 +125,8 @@ require('lazy').setup({
         changedelete = { text = '~' },
       },
       on_attach = function(bufnr)
-        vim.keymap.set('n', '<leader>gp', require('gitsigns').prev_hunk, { buffer = bufnr, desc = '[G]o to [P]revious Hunk' })
+        vim.keymap.set('n', '<leader>gp', require('gitsigns').prev_hunk,
+          { buffer = bufnr, desc = '[G]o to [P]revious Hunk' })
         vim.keymap.set('n', '<leader>gn', require('gitsigns').next_hunk, { buffer = bufnr, desc = '[G]o to [N]ext Hunk' })
         vim.keymap.set('n', '<leader>ph', require('gitsigns').preview_hunk, { buffer = bufnr, desc = '[P]review [H]unk' })
       end,
@@ -164,7 +168,7 @@ require('lazy').setup({
   },
 
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim', opts = {} },
+  { 'numToStr/Comment.nvim',         opts = {} },
 
   -- Fuzzy Finder (files, lsp, etc)
   { 'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' } },
@@ -190,6 +194,36 @@ require('lazy').setup({
     },
     build = ':TSUpdate',
   },
+  {
+    'jose-elias-alvarez/null-ls.nvim',
+    config = function()
+      local sources = {
+        require('null-ls').builtins.formatting.prettier,
+        require('null-ls').builtins.diagnostics.eslint,
+      }
+
+      local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+      local on_attach = function(client, bufnr)
+        if client.supports_method "textDocument/formatting" then
+          vim.api.nvim_clear_autocmds { group = augroup, buffer = bufnr }
+          vim.api.nvim_create_autocmd("BufWritePre", {
+            group = augroup,
+            buffer = bufnr,
+            callback = function()
+              vim.lsp.buf.format { async = false }
+            end,
+          })
+        end
+      end
+
+      require('null-ls').setup({
+        debug = true,
+        sources = sources,
+        on_attach = on_attach,
+      })
+    end,
+    requires = { 'nvim-lua/plenary.nvim' }
+  }
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
@@ -215,6 +249,9 @@ vim.o.hlsearch = false
 
 -- Make line numbers default
 vim.wo.number = true
+
+-- Enable relative line numbers
+vim.wo.relativenumber = true;
 
 -- Enable mouse mode
 vim.o.mouse = 'a'
@@ -307,11 +344,9 @@ vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { de
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim' },
-
-  -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
-  auto_install = false,
-
+  ensure_installed = { 'css', 'html', 'java', 'javascript', 'json', 'lua', 'markdown', 'scss', 'tsx', 'typescript',
+    'vimdoc', 'vim' },
+  auto_install = true,
   highlight = { enable = true },
   indent = { enable = true },
   incremental_selection = {
@@ -426,12 +461,9 @@ end
 --  Add any additional override configuration in the following tables. They will be passed to
 --  the `settings` field of the server config. You must look up that documentation yourself.
 local servers = {
-  -- clangd = {},
-  -- gopls = {},
-  -- pyright = {},
-  -- rust_analyzer = {},
-  -- tsserver = {},
-
+  eslint = {},
+  tailwindcss = {},
+  tsserver = {},
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
