@@ -1,43 +1,6 @@
---[[
-
-=====================================================================
-==================== READ THIS BEFORE CONTINUING ====================
-=====================================================================
-
-Kickstart.nvim is *not* a distribution.
-
-Kickstart.nvim is a template for your own configuration.
-  The goal is that you can read every line of code, top-to-bottom, understand
-  what your configuration is doing, and modify it to suit your needs.
-
-  Once you've done that, you should start exploring, configuring and tinkering to
-  explore Neovim!
-
-  If you don't know anything about Lua, I recommend taking some time to read through
-  a guide. One possible example:
-  - https://learnxinyminutes.com/docs/lua/
-
-  And then you can explore or search through `:help lua-guide`
-
-
-Kickstart Guide:
-
-I have left several `:help X` comments throughout the init.lua
-You should run that command and read that help section for more information.
-
-In addition, I have some `NOTE:` items throughout the file.
-These are for you, the reader to help understand what is happening. Feel free to delete
-them once you know what you're doing, but they should serve as a guide for when you
-are first encountering a few different constructs in your nvim config.
-
-I hope you enjoy your Neovim journey,
-- TJ
-
-P.S. You can delete this when you're done too. It's your config now :)
---]]
 -- Set <space> as the leader key
 -- See `:help mapleader`
---  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
+-- NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
@@ -46,8 +9,8 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
 -- Install package manager
---    https://github.com/folke/lazy.nvim
---    `:help lazy.nvim.txt` for more info
+-- https://github.com/folke/lazy.nvim
+-- `:help lazy.nvim.txt` for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system {
@@ -61,11 +24,6 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- NOTE: Here is where you install your plugins.
---  You can configure plugins using the `config` key.
---
---  You can also configure plugins after the setup call,
---    as they will be available in your neovim runtime.
 require('lazy').setup({
   -- Git related plugins
   'tpope/vim-fugitive',
@@ -74,10 +32,8 @@ require('lazy').setup({
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
 
-  -- NOTE: This is where your plugins related to LSP can be installed.
-  --  The configuration is done below. Search for lspconfig to find it below.
+  -- LSP Configuration & Plugins
   {
-    -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
     dependencies = {
       -- Automatically install LSPs to stdpath for neovim
@@ -89,7 +45,15 @@ require('lazy').setup({
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
+      {
+        'j-hui/fidget.nvim',
+        tag = 'legacy',
+        opts = {
+          window = {
+            blend = 0, -- comment out to remove transparency
+          }
+        }
+      },
 
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
@@ -146,19 +110,65 @@ require('lazy').setup({
     -- See `:help lualine.txt`
     opts = {
       options = {
-        component_separators = { left = '', right = '' },
         icons_enabled = true,
         theme = 'onedark',
+        component_separators = { left = '', right = '' },
         section_separators = { left = '', right = '' },
+        disabled_filetypes = { 'NvimTree' }
       },
       sections = {
         lualine_a = { 'mode' },
         lualine_b = { 'diagnostics' },
         lualine_c = {},
-        lualine_x = { 'filetype' },
+        lualine_x = {},
         lualine_y = { 'diff' },
         lualine_z = { 'branch' }
       },
+      theme = function()
+        local colors = {
+          darkgray = "#16161d",
+          gray = "#727169",
+          innerbg = 'none',
+          outerbg = "#16161D",
+          normal = 'none',
+          insert = "#98bb6c",
+          visual = "#ffa066",
+          replace = "#e46876",
+          command = "#e6c384",
+        }
+        return {
+          inactive = {
+            a = { fg = colors.gray, bg = colors.outerbg, gui = "bold" },
+            b = { fg = colors.gray, bg = colors.outerbg },
+            c = { fg = colors.gray, bg = colors.innerbg },
+          },
+          visual = {
+            a = { fg = colors.darkgray, bg = colors.visual, gui = "bold" },
+            b = { fg = colors.gray, bg = colors.outerbg },
+            c = { fg = colors.gray, bg = colors.innerbg },
+          },
+          replace = {
+            a = { fg = colors.darkgray, bg = colors.replace, gui = "bold" },
+            b = { fg = colors.gray, bg = colors.outerbg },
+            c = { fg = colors.gray, bg = colors.innerbg },
+          },
+          normal = {
+            a = { fg = colors.darkgray, bg = colors.normal, gui = "bold" },
+            b = { fg = colors.gray, bg = colors.outerbg },
+            c = { fg = colors.gray, bg = colors.innerbg },
+          },
+          insert = {
+            a = { fg = colors.darkgray, bg = colors.insert, gui = "bold" },
+            b = { fg = colors.gray, bg = colors.outerbg },
+            c = { fg = colors.gray, bg = colors.innerbg },
+          },
+          command = {
+            a = { fg = colors.darkgray, bg = colors.command, gui = "bold" },
+            b = { fg = colors.gray, bg = colors.outerbg },
+            c = { fg = colors.gray, bg = colors.innerbg },
+          },
+        }
+      end
     },
   },
   {
@@ -283,6 +293,10 @@ require('lazy').setup({
         },
       })
     end,
+  },
+  -- Copilot
+  {
+    'github/copilot.vim',
   }
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
@@ -481,7 +495,6 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnos
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
-
 -- Tab keymaps
 local opts = { noremap = true, silent = true }
 vim.keymap.set('n', '<A-,>', '<Cmd>BufferPrevious<CR>', opts)
@@ -602,24 +615,10 @@ cmp.setup {
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
     },
-    ['<Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      elseif luasnip.expand_or_locally_jumpable() then
-        luasnip.expand_or_jump()
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
-    ['<S-Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      elseif luasnip.locally_jumpable(-1) then
-        luasnip.jump(-1)
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
+  },
+  window = {
+    completion = cmp.config.window.bordered(),
+    documentation = cmp.config.window.bordered(),
   },
   sources = {
     { name = 'nvim_lsp' },
@@ -627,5 +626,100 @@ cmp.setup {
   },
 }
 
+-- Custom Highlights
+local colors = {
+  purple = '#c678dd',
+  blue = '#61afef',
+  red = '#e86671',
+  yellow = '#e5c07b',
+  green = '#98c379',
+  teal = '#56b6c2',
+  light_orange = '#d19a66',
+}
+
+-- General Highlights
+vim.api.nvim_set_hl(0, "WinSeparator", { bg = 'none' })
+
+-- Nvim Tree Transparency
+vim.api.nvim_set_hl(0, "NvimTreeCursorLine", { bg = 'none' })
+vim.api.nvim_set_hl(0, "NvimTreeEndOfBuffer", { bg = 'none' })
+
+-- BarBar Transparency
+vim.api.nvim_set_hl(0, "BufferTabpageFill", { bg = 'none' })
+vim.api.nvim_set_hl(0, "BufferCurrent", { fg = colors.purple, bg = 'none' })
+vim.api.nvim_set_hl(0, "BufferCurrentSign", { fg = colors.purple, bg = 'none' })
+vim.api.nvim_set_hl(0, "BufferCurrentSignRight", { fg = colors.purple, bg = 'none' })
+vim.api.nvim_set_hl(0, "BufferInactive", { bg = 'none' })
+vim.api.nvim_set_hl(0, "BufferInactiveMod", { fg = colors.light_orange, bg = 'none' })
+vim.api.nvim_set_hl(0, "BufferInactiveTarget", { fg = 'none', bg = 'none' })
+vim.api.nvim_set_hl(0, "BufferInactiveSign", { fg = colors.purple, bg = 'none' })
+vim.api.nvim_set_hl(0, "BufferInactiveIndex", { fg = 'none', bg = 'none' })
+vim.api.nvim_set_hl(0, "BufferVisible", { bg = 'none' })
+vim.api.nvim_set_hl(0, "BufferVisibleMod", { fg = colors.light_orange, bg = 'none' })
+vim.api.nvim_set_hl(0, "BufferVisibleTarget", { fg = 'none', bg = 'none' })
+vim.api.nvim_set_hl(0, "BufferVisibleSign", { fg = colors.purple, bg = 'none' })
+vim.api.nvim_set_hl(0, "BufferVisibleIndex", { fg = 'none', bg = 'none' })
+
+-- Lualine Transparency
+vim.api.nvim_set_hl(0, "lualine_b_normal", { bg = 'none' })
+vim.api.nvim_set_hl(0, "lualine_b_insert", { bg = 'none' })
+vim.api.nvim_set_hl(0, "lualine_b_visual", { bg = 'none' })
+vim.api.nvim_set_hl(0, "lualine_b_command", { bg = 'none' })
+vim.api.nvim_set_hl(0, "lualine_b_inactive", { bg = 'none' })
+
+vim.api.nvim_set_hl(0, "lualine_separator_normal", { bg = 'none' })
+vim.api.nvim_set_hl(0, "lualine_separator_insert", { bg = 'none' })
+vim.api.nvim_set_hl(0, "lualine_separator_visual", { bg = 'none' })
+vim.api.nvim_set_hl(0, "lualine_separator_command", { bg = 'none' })
+vim.api.nvim_set_hl(0, "lualine_separator_inactive", { bg = 'none' })
+
+vim.api.nvim_set_hl(0, "lualine_b_diagnostics_error_normal", { fg = colors.red, bg = 'none' })
+vim.api.nvim_set_hl(0, "lualine_b_diagnostics_error_insert", { fg = colors.red, bg = 'none' })
+vim.api.nvim_set_hl(0, "lualine_b_diagnostics_error_visual", { fg = colors.red, bg = 'none' })
+vim.api.nvim_set_hl(0, "lualine_b_diagnostics_error_command", { fg = colors.red, bg = 'none' })
+vim.api.nvim_set_hl(0, "lualine_b_diagnostics_error_inactive", { fg = colors.red, bg = 'none' })
+
+vim.api.nvim_set_hl(0, "lualine_b_diagnostics_warn_normal", { fg = colors.yellow, bg = 'none' })
+vim.api.nvim_set_hl(0, "lualine_b_diagnostics_warn_insert", { fg = colors.yellow, bg = 'none' })
+vim.api.nvim_set_hl(0, "lualine_b_diagnostics_warn_visual", { fg = colors.yellow, bg = 'none' })
+vim.api.nvim_set_hl(0, "lualine_b_diagnostics_warn_command", { fg = colors.yellow, bg = 'none' })
+vim.api.nvim_set_hl(0, "lualine_b_diagnostics_warn_inactive", { fg = colors.yellow, bg = 'none' })
+
+vim.api.nvim_set_hl(0, "lualine_b_diagnostics_info_normal", { fg = colors.teal, bg = 'none' })
+vim.api.nvim_set_hl(0, "lualine_b_diagnostics_info_insert", { fg = colors.teal, bg = 'none' })
+vim.api.nvim_set_hl(0, "lualine_b_diagnostics_info_visual", { fg = colors.teal, bg = 'none' })
+vim.api.nvim_set_hl(0, "lualine_b_diagnostics_info_command", { fg = colors.teal, bg = 'none' })
+vim.api.nvim_set_hl(0, "lualine_b_diagnostics_info_inactive", { fg = colors.teal, bg = 'none' })
+
+vim.api.nvim_set_hl(0, "lualine_b_diagnostics_hint_normal", { fg = colors.purple, bg = 'none' })
+vim.api.nvim_set_hl(0, "lualine_b_diagnostics_hint_insert", { fg = colors.purple, bg = 'none' })
+vim.api.nvim_set_hl(0, "lualine_b_diagnostics_hint_visual", { fg = colors.purple, bg = 'none' })
+vim.api.nvim_set_hl(0, "lualine_b_diagnostics_hint_command", { fg = colors.purple, bg = 'none' })
+vim.api.nvim_set_hl(0, "lualine_b_diagnostics_hint_inactive", { fg = colors.purple, bg = 'none' })
+
+vim.api.nvim_set_hl(0, "lualine_c_normal", { bg = 'none' })
+vim.api.nvim_set_hl(0, "lualine_c_insert", { bg = 'none' })
+vim.api.nvim_set_hl(0, "lualine_c_visual", { bg = 'none' })
+vim.api.nvim_set_hl(0, "lualine_c_command", { bg = 'none' })
+vim.api.nvim_set_hl(0, "lualine_c_inactive", { bg = 'none' })
+
+vim.api.nvim_set_hl(0, "lualine_y_diff_added_normal", { fg = colors.green, bg = 'none' })
+vim.api.nvim_set_hl(0, "lualine_y_diff_added_insert", { fg = colors.green, bg = 'none' })
+vim.api.nvim_set_hl(0, "lualine_y_diff_added_visual", { fg = colors.green, bg = 'none' })
+vim.api.nvim_set_hl(0, "lualine_y_diff_added_command", { fg = colors.green, bg = 'none' })
+vim.api.nvim_set_hl(0, "lualine_y_diff_added_inactive", { fg = colors.green, bg = 'none' })
+
+vim.api.nvim_set_hl(0, "lualine_y_diff_modified_normal", { fg = colors.blue, bg = 'none' })
+vim.api.nvim_set_hl(0, "lualine_y_diff_modified_insert", { fg = colors.blue, bg = 'none' })
+vim.api.nvim_set_hl(0, "lualine_y_diff_modified_visual", { fg = colors.blue, bg = 'none' })
+vim.api.nvim_set_hl(0, "lualine_y_diff_modified_command", { fg = colors.blue, bg = 'none' })
+vim.api.nvim_set_hl(0, "lualine_y_diff_modified_inactive", { fg = colors.blue, bg = 'none' })
+
+vim.api.nvim_set_hl(0, "lualine_y_diff_removed_normal", { fg = colors.red, bg = 'none' })
+vim.api.nvim_set_hl(0, "lualine_y_diff_removed_insert", { fg = colors.red, bg = 'none' })
+vim.api.nvim_set_hl(0, "lualine_y_diff_removed_visual", { fg = colors.red, bg = 'none' })
+vim.api.nvim_set_hl(0, "lualine_y_diff_removed_command", { fg = colors.red, bg = 'none' })
+vim.api.nvim_set_hl(0, "lualine_y_diff_removed_inactive", { fg = colors.red, bg = 'none' })
+--
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
