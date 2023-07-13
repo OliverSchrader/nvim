@@ -1,6 +1,4 @@
--- Set <space> as the leader key
--- See `:help mapleader`
--- NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
+-- Set <space> as the leader key See `:help mapleader`
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
@@ -9,8 +7,6 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
 -- Install package manager
--- https://github.com/folke/lazy.nvim
--- `:help lazy.nvim.txt` for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system {
@@ -18,7 +14,7 @@ if not vim.loop.fs_stat(lazypath) then
     'clone',
     '--filter=blob:none',
     'https://github.com/folke/lazy.nvim.git',
-    '--branch=stable', -- latest stable release
+    '--branch=stable',
     lazypath,
   }
 end
@@ -28,34 +24,26 @@ require('lazy').setup({
   -- Git related plugins
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
-
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
-
   -- LSP Configuration & Plugins
   {
     'neovim/nvim-lspconfig',
     dependencies = {
-      -- Automatically install LSPs to stdpath for neovim
       {
         'williamboman/mason.nvim',
         config = true,
       },
       'williamboman/mason-lspconfig.nvim',
-
-      -- Useful status updates for LSP
-      -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
       {
         'j-hui/fidget.nvim',
         tag = 'legacy',
         opts = {
           window = {
-            blend = 0, -- comment out to remove transparency
+            blend = 0,
           }
         }
       },
-
-      -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
     },
   },
@@ -63,30 +51,38 @@ require('lazy').setup({
     -- Autocompletion
     'hrsh7th/nvim-cmp',
     dependencies = {
-      -- Snippet Engine & its associated nvim-cmp source
       'L3MON4D3/LuaSnip',
       'saadparwaiz1/cmp_luasnip',
-
-      -- Adds LSP completion capabilities
       'hrsh7th/cmp-nvim-lsp',
-
-      -- Adds a number of user-friendly snippets
       'rafamadriz/friendly-snippets',
     },
   },
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim',          opts = {} },
+  {
+    'folke/which-key.nvim',
+    opts = {}
+  },
   {
     -- Adds git releated signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
     opts = {
-      -- See `:help gitsigns.txt`
       signs = {
         add = { text = '+' },
         change = { text = '~' },
         delete = { text = '_' },
         topdelete = { text = '‾' },
         changedelete = { text = '~' },
+      },
+      current_line_blame = true,
+      current_line_blame_opts = {
+        delay = 500,
+      },
+      preview_config = {
+        border = 'rounded',
+        style = 'minimal',
+        relative = 'cursor',
+        row = 0,
+        col = 1
       },
       on_attach = function(bufnr)
         vim.keymap.set('n', '<leader>gp', require('gitsigns').prev_hunk,
@@ -107,13 +103,12 @@ require('lazy').setup({
   {
     -- Set lualine as statusline
     'nvim-lualine/lualine.nvim',
-    -- See `:help lualine.txt`
     opts = {
       options = {
         icons_enabled = true,
         theme = 'onedark',
         component_separators = { left = '', right = '' },
-        section_separators = { left = '', right = '' },
+        section_separators = { left = '', right = '' },
         disabled_filetypes = { 'NvimTree' }
       },
       sections = {
@@ -124,64 +119,16 @@ require('lazy').setup({
         lualine_y = { 'diff' },
         lualine_z = { 'branch' }
       },
-      theme = function()
-        local colors = {
-          darkgray = "#16161d",
-          gray = "#727169",
-          innerbg = 'none',
-          outerbg = "#16161D",
-          normal = 'none',
-          insert = "#98bb6c",
-          visual = "#ffa066",
-          replace = "#e46876",
-          command = "#e6c384",
-        }
-        return {
-          inactive = {
-            a = { fg = colors.gray, bg = colors.outerbg, gui = "bold" },
-            b = { fg = colors.gray, bg = colors.outerbg },
-            c = { fg = colors.gray, bg = colors.innerbg },
-          },
-          visual = {
-            a = { fg = colors.darkgray, bg = colors.visual, gui = "bold" },
-            b = { fg = colors.gray, bg = colors.outerbg },
-            c = { fg = colors.gray, bg = colors.innerbg },
-          },
-          replace = {
-            a = { fg = colors.darkgray, bg = colors.replace, gui = "bold" },
-            b = { fg = colors.gray, bg = colors.outerbg },
-            c = { fg = colors.gray, bg = colors.innerbg },
-          },
-          normal = {
-            a = { fg = colors.darkgray, bg = colors.normal, gui = "bold" },
-            b = { fg = colors.gray, bg = colors.outerbg },
-            c = { fg = colors.gray, bg = colors.innerbg },
-          },
-          insert = {
-            a = { fg = colors.darkgray, bg = colors.insert, gui = "bold" },
-            b = { fg = colors.gray, bg = colors.outerbg },
-            c = { fg = colors.gray, bg = colors.innerbg },
-          },
-          command = {
-            a = { fg = colors.darkgray, bg = colors.command, gui = "bold" },
-            b = { fg = colors.gray, bg = colors.outerbg },
-            c = { fg = colors.gray, bg = colors.innerbg },
-          },
-        }
-      end
     },
   },
   {
     -- Add indentation guides even on blank lines
     'lukas-reineke/indent-blankline.nvim',
-    -- Enable `lukas-reineke/indent-blankline.nvim`
-    -- See `:help indent_blankline.txt`
     opts = {
       char = '┊',
       show_trailing_blankline_indent = false,
     },
   },
-  -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim',         opts = {} },
   -- Fuzzy Finder (files, lsp, etc)
   { 'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' } },
@@ -288,8 +235,129 @@ require('lazy').setup({
     config = function()
       require("transparent").setup({
         extra_groups = {
+          -- General
           "NormalFloat",
+
+          -- BarBar
+          "BufferTabpageFill",
+          "BufferCurrent",
+          "BufferCurrentSign",
+          "BufferCurrentSignRight",
+          "BufferInactive",
+          "BufferInactiveMod",
+          "BufferInactiveSign",
+          "BufferInactiveSignRight",
+          "BufferInactiveTarget",
+          "BufferInactiveIndex",
+          "BufferVisible",
+          "BufferVisibleMod",
+          "BufferVisibleSign",
+          "BufferVisibleSignRight",
+          "BufferVisibleTarget",
+          "BufferVisibleIndex",
+
+          -- NvimTree
           "NvimTreeNormal",
+          "NvimTreeVertSplit",
+          "NvimTreeStatusLine",
+          "NvimTreeStatusLineNC",
+          "NvimTreeWindowPicker",
+          "NvimTreeEndOfBuffer",
+          "NvimTreeRootFolder",
+          "NvimTreeCursorLine",
+
+          -- Lualine
+          "lualine_a_normal",
+          "lualine_a_insert",
+          "lualine_a_visual",
+          "lualine_a_replace",
+          "lualine_a_command",
+          "lualine_a_inactive",
+
+          "lualine_b_normal",
+          "lualine_b_insert",
+          "lualine_b_visual",
+          "lualine_b_replace",
+          "lualine_b_command",
+          "lualine_b_inactive",
+
+          "lualine_b_diagnostics_error_normal",
+          "lualine_b_diagnostics_error_insert",
+          "lualine_b_diagnostics_error_visual",
+          "lualine_b_diagnostics_error_replace",
+          "lualine_b_diagnostics_error_command",
+          "lualine_b_diagnostics_error_inactive",
+
+          "lualine_b_diagnostics_warn_normal",
+          "lualine_b_diagnostics_warn_insert",
+          "lualine_b_diagnostics_warn_visual",
+          "lualine_b_diagnostics_warn_replace",
+          "lualine_b_diagnostics_warn_command",
+          "lualine_b_diagnostics_warn_inactive",
+
+          "lualine_b_diagnostics_info_normal",
+          "lualine_b_diagnostics_info_insert",
+          "lualine_b_diagnostics_info_visual",
+          "lualine_b_diagnostics_info_replace",
+          "lualine_b_diagnostics_info_command",
+          "lualine_b_diagnostics_info_inactive",
+
+          "lualine_b_diagnostics_hint_normal",
+          "lualine_b_diagnostics_hint_insert",
+          "lualine_b_diagnostics_hint_visual",
+          "lualine_b_diagnostics_hint_replace",
+          "lualine_b_diagnostics_hint_command",
+          "lualine_b_diagnostics_hint_inactive",
+
+          "lualine_c_normal",
+          "lualine_c_insert",
+          "lualine_c_visual",
+          "lualine_c_replace",
+          "lualine_c_command",
+          "lualine_c_inactive",
+
+          "lualine_x_normal",
+          "lualine_x_insert",
+          "lualine_x_visual",
+          "lualine_x_replace",
+          "lualine_x_command",
+          "lualine_x_inactive",
+
+          "lualine_y_normal",
+          "lualine_y_insert",
+          "lualine_y_visual",
+          "lualine_y_replace",
+          "lualine_y_command",
+          "lualine_y_inactive",
+          "lualine_y_diff",
+
+          "lualine_y_diff_added_normal",
+          "lualine_y_diff_added_insert",
+          "lualine_y_diff_added_visual",
+          "lualine_y_diff_added_replace",
+          "lualine_y_diff_added_command",
+          "lualine_y_diff_added_inactive",
+
+          "lualine_y_diff_modified_normal",
+          "lualine_y_diff_modified_insert",
+          "lualine_y_diff_modified_visual",
+          "lualine_y_diff_modified_replace",
+          "lualine_y_diff_modified_command",
+          "lualine_y_diff_modified_inactive",
+
+          "lualine_y_diff_removed_normal",
+          "lualine_y_diff_removed_insert",
+          "lualine_y_diff_removed_visual",
+          "lualine_y_diff_removed_replace",
+          "lualine_y_diff_removed_command",
+          "lualine_y_diff_removed_inactive",
+
+          "lualine_z_normal",
+          "lualine_z_insert",
+          "lualine_z_visual",
+          "lualine_z_replace",
+          "lualine_z_command",
+          "lualine_z_inactive",
         },
       })
     end,
@@ -305,26 +373,9 @@ require('lazy').setup({
       require("autoclose").setup()
     end
   }
-
-  -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
-  --       These are some example plugins that I've included in the kickstart repository.
-  --       Uncomment any of the lines below to enable them.
-  -- require 'kickstart.plugins.autoformat',
-  -- require 'kickstart.plugins.debug',
-
-  -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
-  --    You can use this folder to prevent any conflicts with this init.lua if you're interested in keeping
-  --    up-to-date with whatever is in the kickstart repo.
-  --    Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
-  --
-  --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
-  -- { import = 'custom.plugins' },
 }, {})
 
--- [[ Setting options ]]
--- See `:help vim.o`
--- NOTE: You can change these options as you wish!
-
+-- Settings
 -- Set highlight on search
 vim.o.hlsearch = false
 
@@ -338,8 +389,6 @@ vim.wo.relativenumber = true;
 vim.o.mouse = 'a'
 
 -- Sync clipboard between OS and Neovim.
---  Remove this option if you want your OS clipboard to remain independent.
---  See `:help 'clipboard'`
 vim.o.clipboard = 'unnamedplus'
 
 -- Enable break indent
@@ -363,7 +412,7 @@ vim.o.timeoutlen = 300
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
 
--- NOTE: You should make sure your terminal supports this
+-- Required for icons along with a patched font
 vim.o.termguicolors = true
 
 -- Tab width
@@ -371,10 +420,7 @@ vim.opt.tabstop = 2;
 vim.opt.softtabstop = 2;
 vim.opt.shiftwidth = 2;
 
--- [[ Basic Keymaps ]]
-
--- Keymaps for better default experience
--- See `:help vim.keymap.set()`
+-- Basic Keymaps
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 -- Remap for dealing with word wrap
@@ -382,13 +428,61 @@ vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = tr
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- Remap for switching between windows
--- vim.keymap.set('n', '<C-w>h', '<C-h>')
--- vim.keymap.set('n', '<C-w>j', '<C-j>')
--- vim.keymap.set('n', '<C-w>k', '<C-k>')
--- vim.keymap.set('n', '<C-w>l', '<C-l>')
+vim.keymap.set('n', '<A-h>', '<C-w>h')
+vim.keymap.set('n', '<A-j>', '<C-w>j')
+vim.keymap.set('n', '<A-k>', '<C-w>k')
+vim.keymap.set('n', '<A-l>', '<C-w>l')
 
--- [[ Highlight on yank ]]
--- See `:help vim.highlight.on_yank()`
+-- Remap to move lines in visual mode
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+
+-- Remap to disable ZZ
+vim.keymap.set("n", "ZZ", "<Nop>")
+
+-- Remap to format the file
+vim.keymap.set("n", "<leader>f", "<cmd>lua vim.lsp.buf.format()<CR>")
+
+-- Remap for current word search and replace
+vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+
+-- Remap to keep cursor centered
+vim.keymap.set("n", "j", "jzz")
+vim.keymap.set("n", "k", "kzz")
+vim.keymap.set('n', '<A-k>', '<C-u>zz')
+vim.keymap.set('n', '<A-j>', '<C-d>zz')
+vim.keymap.set("n", "n", "nzzzv")
+vim.keymap.set("n", "N", "Nzzzv")
+vim.keymap.set("n", "G", "Gzz")
+vim.keymap.set("n", "p", "pzz")
+vim.keymap.set("n", "P", "Pzz")
+vim.keymap.set("n", "u", "uzz")
+vim.keymap.set("n", "<C-r>", "<C-r>zz")
+
+-- Remap to delete highlighted text into the void register and then paste
+vim.keymap.set("x", "<leader>p", [["_dP]])
+
+-- Remap to allow scrolling in insert mode
+vim.keymap.set("i", "<A-k>", "<Up>")
+vim.keymap.set("i", "<A-j>", "<Down>")
+vim.keymap.set("i", "<A-h>", "<Left>")
+vim.keymap.set("i", "<A-l>", "<Right>")
+
+-- Remap to disable arrow keys
+vim.keymap.set("n", "<Up>", "<Nop>")
+vim.keymap.set("n", "<Down>", "<Nop>")
+vim.keymap.set("n", "<Left>", "<Nop>")
+vim.keymap.set("n", "<Right>", "<Nop>")
+vim.keymap.set("i", "<Up>", "<Nop>")
+vim.keymap.set("i", "<Down>", "<Nop>")
+vim.keymap.set("i", "<Left>", "<Nop>")
+vim.keymap.set("i", "<Right>", "<Nop>")
+vim.keymap.set("v", "<Up>", "<Nop>")
+vim.keymap.set("v", "<Down>", "<Nop>")
+vim.keymap.set("v", "<Left>", "<Nop>")
+vim.keymap.set("v", "<Right>", "<Nop>")
+
+-- Highlight on yank
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
 vim.api.nvim_create_autocmd('TextYankPost', {
   callback = function()
@@ -398,8 +492,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
 })
 
--- [[ Configure Telescope ]]
--- See `:help telescope` and `:help telescope.setup()`
+-- Telescope
 require('telescope').setup {
   defaults = {
     mappings = {
@@ -414,11 +507,9 @@ require('telescope').setup {
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
 
--- See `:help telescope.builtin`
 vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
 vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
 vim.keymap.set('n', '<leader>/', function()
-  -- You can pass additional configuration to telescope to change theme, layout, etc.
   require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
     winblend = 10,
     previewer = false,
@@ -432,10 +523,8 @@ vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { de
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 
--- [[ Configure Treesitter ]]
--- See `:help nvim-treesitter`
+-- Treesitter
 require('nvim-treesitter.configs').setup {
-  -- Add languages to be installed here that you want installed for treesitter
   ensure_installed = { 'css', 'html', 'java', 'javascript', 'json', 'lua', 'markdown', 'scss', 'tsx', 'typescript',
     'vimdoc', 'vim' },
   auto_install = true,
@@ -497,31 +586,22 @@ require('nvim-treesitter.configs').setup {
 }
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
 -- Tab keymaps
-local opts = { noremap = true, silent = true }
-vim.keymap.set('n', '<A-,>', '<Cmd>BufferPrevious<CR>', opts)
-vim.keymap.set('n', '<A-.>', '<Cmd>BufferNext<CR>', opts)
-vim.keymap.set('n', '<A-<>', '<Cmd>BufferMovePrevious<CR>', opts)
-vim.keymap.set('n', '<A->>', '<Cmd>BufferMoveNext<CR>', opts)
-vim.keymap.set('n', '<A-c>', '<Cmd>BufferClose<CR>', opts)
+vim.keymap.set('n', '<A-,>', '<Cmd>BufferPrevious<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<A-.>', '<Cmd>BufferNext<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<A-<>', '<Cmd>BufferMovePrevious<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<A->>', '<Cmd>BufferMoveNext<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<A-c>', '<Cmd>BufferClose<CR>', { noremap = true, silent = true })
 
 -- NvimTree keymaps
 vim.keymap.set('n', '<A-f>', '<Cmd>NvimTreeToggle<CR>')
 
--- [[ Configure LSP ]]
+--  Configure LSP
 --  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(_, bufnr)
-  -- NOTE: Remember that lua is a real programming language, and as such it is possible
-  -- to define small helper and utility functions so you don't have to repeat yourself
-  -- many times.
-  --
-  -- In this case, we create a function that lets us more easily define mappings specific
-  -- for LSP related items. It sets the mode, buffer and description for us each time.
   local nmap = function(keys, func, desc)
     if desc then
       desc = 'LSP: ' .. desc
@@ -540,11 +620,9 @@ local on_attach = function(_, bufnr)
   nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
   nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
-  -- See `:help K` for why this keymap
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
   nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
-  -- Lesser used LSP functionality
   nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
   nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
   nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
@@ -552,17 +630,11 @@ local on_attach = function(_, bufnr)
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, '[W]orkspace [L]ist Folders')
 
-  -- Create a command `:Format` local to the LSP buffer
   vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
     vim.lsp.buf.format()
   end, { desc = 'Format current buffer with LSP' })
 end
 
--- Enable the following language servers
---  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
---
---  Add any additional override configuration in the following tables. They will be passed to
---  the `settings` field of the server config. You must look up that documentation yourself.
 local servers = {
   eslint = {},
   tailwindcss = {},
@@ -599,8 +671,7 @@ mason_lspconfig.setup_handlers {
   end,
 }
 
--- [[ Configure nvim-cmp ]]
--- See `:help cmp`
+-- Configure nvim-cmp
 local cmp = require 'cmp'
 local luasnip = require 'luasnip'
 require('luasnip.loaders.from_vscode').lazy_load()
@@ -613,11 +684,8 @@ cmp.setup {
     end,
   },
   mapping = cmp.mapping.preset.insert {
-    ['<C-n>'] = cmp.mapping.select_next_item(),
-    ['<C-p>'] = cmp.mapping.select_prev_item(),
-    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete {},
+    ['<A-n>'] = cmp.mapping.select_next_item(),
+    ['<A-p>'] = cmp.mapping.select_prev_item(),
     ['<CR>'] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
@@ -643,90 +711,14 @@ local colors = {
   teal = '#56b6c2',
   light_orange = '#d19a66',
 }
+-- Barbar transparency
+vim.api.nvim_set_hl(0, "BufferCurrent", { fg = colors.purple })
 
--- General Highlights
-vim.api.nvim_set_hl(0, "WinSeparator", { bg = 'none' })
+-- Lualine transparency
+vim.api.nvim_set_hl(0, "lualine_a_normal", { fg = colors.green })
+vim.api.nvim_set_hl(0, "lualine_a_insert", { fg = colors.blue })
+vim.api.nvim_set_hl(0, "lualine_a_visual", { fg = colors.purple })
+vim.api.nvim_set_hl(0, "lualine_a_command", { fg = colors.light_orange })
 
--- Nvim Tree Transparency
-vim.api.nvim_set_hl(0, "NvimTreeCursorLine", { bg = 'none' })
-vim.api.nvim_set_hl(0, "NvimTreeEndOfBuffer", { bg = 'none' })
-
--- BarBar Transparency
-vim.api.nvim_set_hl(0, "BufferTabpageFill", { bg = 'none' })
-vim.api.nvim_set_hl(0, "BufferCurrent", { fg = colors.purple, bg = 'none' })
-vim.api.nvim_set_hl(0, "BufferCurrentSign", { fg = colors.purple, bg = 'none' })
-vim.api.nvim_set_hl(0, "BufferCurrentSignRight", { fg = colors.purple, bg = 'none' })
-vim.api.nvim_set_hl(0, "BufferInactive", { bg = 'none' })
-vim.api.nvim_set_hl(0, "BufferInactiveMod", { fg = colors.light_orange, bg = 'none' })
-vim.api.nvim_set_hl(0, "BufferInactiveTarget", { fg = 'none', bg = 'none' })
-vim.api.nvim_set_hl(0, "BufferInactiveSign", { fg = colors.purple, bg = 'none' })
-vim.api.nvim_set_hl(0, "BufferInactiveIndex", { fg = 'none', bg = 'none' })
-vim.api.nvim_set_hl(0, "BufferVisible", { bg = 'none' })
-vim.api.nvim_set_hl(0, "BufferVisibleMod", { fg = colors.light_orange, bg = 'none' })
-vim.api.nvim_set_hl(0, "BufferVisibleTarget", { fg = 'none', bg = 'none' })
-vim.api.nvim_set_hl(0, "BufferVisibleSign", { fg = colors.purple, bg = 'none' })
-vim.api.nvim_set_hl(0, "BufferVisibleIndex", { fg = 'none', bg = 'none' })
-
--- Lualine Transparency
-vim.api.nvim_set_hl(0, "lualine_b_normal", { bg = 'none' })
-vim.api.nvim_set_hl(0, "lualine_b_insert", { bg = 'none' })
-vim.api.nvim_set_hl(0, "lualine_b_visual", { bg = 'none' })
-vim.api.nvim_set_hl(0, "lualine_b_command", { bg = 'none' })
-vim.api.nvim_set_hl(0, "lualine_b_inactive", { bg = 'none' })
-
-vim.api.nvim_set_hl(0, "lualine_separator_normal", { bg = 'none' })
-vim.api.nvim_set_hl(0, "lualine_separator_insert", { bg = 'none' })
-vim.api.nvim_set_hl(0, "lualine_separator_visual", { bg = 'none' })
-vim.api.nvim_set_hl(0, "lualine_separator_command", { bg = 'none' })
-vim.api.nvim_set_hl(0, "lualine_separator_inactive", { bg = 'none' })
-
-vim.api.nvim_set_hl(0, "lualine_b_diagnostics_error_normal", { fg = colors.red, bg = 'none' })
-vim.api.nvim_set_hl(0, "lualine_b_diagnostics_error_insert", { fg = colors.red, bg = 'none' })
-vim.api.nvim_set_hl(0, "lualine_b_diagnostics_error_visual", { fg = colors.red, bg = 'none' })
-vim.api.nvim_set_hl(0, "lualine_b_diagnostics_error_command", { fg = colors.red, bg = 'none' })
-vim.api.nvim_set_hl(0, "lualine_b_diagnostics_error_inactive", { fg = colors.red, bg = 'none' })
-
-vim.api.nvim_set_hl(0, "lualine_b_diagnostics_warn_normal", { fg = colors.yellow, bg = 'none' })
-vim.api.nvim_set_hl(0, "lualine_b_diagnostics_warn_insert", { fg = colors.yellow, bg = 'none' })
-vim.api.nvim_set_hl(0, "lualine_b_diagnostics_warn_visual", { fg = colors.yellow, bg = 'none' })
-vim.api.nvim_set_hl(0, "lualine_b_diagnostics_warn_command", { fg = colors.yellow, bg = 'none' })
-vim.api.nvim_set_hl(0, "lualine_b_diagnostics_warn_inactive", { fg = colors.yellow, bg = 'none' })
-
-vim.api.nvim_set_hl(0, "lualine_b_diagnostics_info_normal", { fg = colors.teal, bg = 'none' })
-vim.api.nvim_set_hl(0, "lualine_b_diagnostics_info_insert", { fg = colors.teal, bg = 'none' })
-vim.api.nvim_set_hl(0, "lualine_b_diagnostics_info_visual", { fg = colors.teal, bg = 'none' })
-vim.api.nvim_set_hl(0, "lualine_b_diagnostics_info_command", { fg = colors.teal, bg = 'none' })
-vim.api.nvim_set_hl(0, "lualine_b_diagnostics_info_inactive", { fg = colors.teal, bg = 'none' })
-
-vim.api.nvim_set_hl(0, "lualine_b_diagnostics_hint_normal", { fg = colors.purple, bg = 'none' })
-vim.api.nvim_set_hl(0, "lualine_b_diagnostics_hint_insert", { fg = colors.purple, bg = 'none' })
-vim.api.nvim_set_hl(0, "lualine_b_diagnostics_hint_visual", { fg = colors.purple, bg = 'none' })
-vim.api.nvim_set_hl(0, "lualine_b_diagnostics_hint_command", { fg = colors.purple, bg = 'none' })
-vim.api.nvim_set_hl(0, "lualine_b_diagnostics_hint_inactive", { fg = colors.purple, bg = 'none' })
-
-vim.api.nvim_set_hl(0, "lualine_c_normal", { bg = 'none' })
-vim.api.nvim_set_hl(0, "lualine_c_insert", { bg = 'none' })
-vim.api.nvim_set_hl(0, "lualine_c_visual", { bg = 'none' })
-vim.api.nvim_set_hl(0, "lualine_c_command", { bg = 'none' })
-vim.api.nvim_set_hl(0, "lualine_c_inactive", { bg = 'none' })
-
-vim.api.nvim_set_hl(0, "lualine_y_diff_added_normal", { fg = colors.green, bg = 'none' })
-vim.api.nvim_set_hl(0, "lualine_y_diff_added_insert", { fg = colors.green, bg = 'none' })
-vim.api.nvim_set_hl(0, "lualine_y_diff_added_visual", { fg = colors.green, bg = 'none' })
-vim.api.nvim_set_hl(0, "lualine_y_diff_added_command", { fg = colors.green, bg = 'none' })
-vim.api.nvim_set_hl(0, "lualine_y_diff_added_inactive", { fg = colors.green, bg = 'none' })
-
-vim.api.nvim_set_hl(0, "lualine_y_diff_modified_normal", { fg = colors.blue, bg = 'none' })
-vim.api.nvim_set_hl(0, "lualine_y_diff_modified_insert", { fg = colors.blue, bg = 'none' })
-vim.api.nvim_set_hl(0, "lualine_y_diff_modified_visual", { fg = colors.blue, bg = 'none' })
-vim.api.nvim_set_hl(0, "lualine_y_diff_modified_command", { fg = colors.blue, bg = 'none' })
-vim.api.nvim_set_hl(0, "lualine_y_diff_modified_inactive", { fg = colors.blue, bg = 'none' })
-
-vim.api.nvim_set_hl(0, "lualine_y_diff_removed_normal", { fg = colors.red, bg = 'none' })
-vim.api.nvim_set_hl(0, "lualine_y_diff_removed_insert", { fg = colors.red, bg = 'none' })
-vim.api.nvim_set_hl(0, "lualine_y_diff_removed_visual", { fg = colors.red, bg = 'none' })
-vim.api.nvim_set_hl(0, "lualine_y_diff_removed_command", { fg = colors.red, bg = 'none' })
-vim.api.nvim_set_hl(0, "lualine_y_diff_removed_inactive", { fg = colors.red, bg = 'none' })
---
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
