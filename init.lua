@@ -297,6 +297,13 @@ require('lazy').setup({
   -- Copilot
   {
     'github/copilot.vim',
+  },
+  -- Autoclose
+  {
+    'm4xshen/autoclose.nvim',
+    config = function()
+      require("autoclose").setup()
+    end
   }
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
