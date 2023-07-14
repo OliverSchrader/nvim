@@ -130,8 +130,12 @@ require('lazy').setup({
     },
   },
   { 'numToStr/Comment.nvim',         opts = {} },
-  -- Fuzzy Finder (files, lsp, etc)
+  -- Telescope
   { 'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' } },
+  -- Telescope File Browser
+  {
+    "nvim-telescope/telescope-file-browser.nvim",
+  },
   -- Fuzzy Finder Algorithm which requires local dependencies to be built.
   -- Only load if `make` is available. Make sure you have the system
   -- requirements installed.
@@ -197,37 +201,6 @@ require('lazy').setup({
         NvimTree = true,
       }
     },
-  },
-  -- File Explorer - nvim-tree
-  {
-    "nvim-tree/nvim-tree.lua",
-    version = "*",
-    lazy = false,
-    dependencies = {
-      "nvim-tree/nvim-web-devicons",
-    },
-    config = function()
-      local function my_on_attach(bufnr)
-        local api = require "nvim-tree.api"
-
-        local function opts(desc)
-          return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
-        end
-
-        api.config.mappings.default_on_attach(bufnr)
-
-        vim.keymap.set('n', '?', api.tree.toggle_help, opts('Help'))
-      end
-
-      require("nvim-tree").setup {
-        on_attach = my_on_attach,
-        view = {
-          number = true,
-          relativenumber = true,
-          width = {},
-        }
-      }
-    end,
   },
   -- Transparency
   {
@@ -372,6 +345,15 @@ require('lazy').setup({
     config = function()
       require("autoclose").setup()
     end
+  },
+  -- Session management
+  {
+    'rmagatti/auto-session',
+    config = function()
+      require("auto-session").setup {
+        log_level = "error",
+      }
+    end
   }
 }, {})
 
@@ -439,10 +421,10 @@ vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 vim.keymap.set("n", "ZZ", "<Nop>")
 
 -- Remap to format the file
-vim.keymap.set("n", "<leader>f", "<cmd>lua vim.lsp.buf.format()<CR>")
+vim.keymap.set("n", "<A-F>", "<cmd>lua vim.lsp.buf.format()<CR>")
 
 -- Remap for current word search and replace
-vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+vim.keymap.set("n", "<leader>sr", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "Document [S]earch and [R]eplace" })
 
 -- Remap to keep cursor centered
 vim.keymap.set("n", "j", "jzz")
@@ -493,6 +475,9 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 -- Telescope
 require('telescope').setup {
   defaults = {
+    layout_config = {
+      prompt_position = "top",
+    },
     mappings = {
       i = {
         ['<C-u>'] = false,
@@ -500,31 +485,55 @@ require('telescope').setup {
       },
     },
   },
+  pickers = {
+    buffers = {
+      theme = "dropdown",
+      previewer = false,
+      initial_mode = "normal",
+    },
+    find_files = {
+      theme = "dropdown",
+      previewer = false,
+    },
+    oldfiles = {
+      theme = "dropdown",
+      previewer = false,
+      initial_mode = "normal",
+    },
+  },
+  extensions = {
+    file_browser = {
+      hidden = true,
+      theme = "dropdown",
+      previewer = false,
+      hijack_netrw = true,
+      initial_mode = "normal",
+    },
+  },
 }
 
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
 
-vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
-vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
-vim.keymap.set('n', '<leader>/', function()
-  require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-    winblend = 10,
-    previewer = false,
-  })
-end, { desc = '[/] Fuzzily search in current buffer' })
-
-vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files, { desc = 'Search [G]it [F]iles' })
-vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
-vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
-vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
-vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
-vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
+-- Enable telescope file browser, if installed
+pcall(require('telescope').load_extension, 'file_browser')
 
 -- Treesitter
 require('nvim-treesitter.configs').setup {
-  ensure_installed = { 'css', 'html', 'java', 'javascript', 'json', 'lua', 'markdown', 'scss', 'tsx', 'typescript',
-    'vimdoc', 'vim' },
+  ensure_installed = {
+    'css',
+    'html',
+    'java',
+    'javascript',
+    'json',
+    'lua',
+    'markdown',
+    'scss',
+    'tsx',
+    'typescript',
+    'vimdoc',
+    'vim'
+  },
   auto_install = true,
   highlight = { enable = true },
   indent = { enable = true },
@@ -594,8 +603,24 @@ vim.keymap.set('n', '<A-<>', '<Cmd>BufferMovePrevious<CR>', { noremap = true, si
 vim.keymap.set('n', '<A->>', '<Cmd>BufferMoveNext<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<A-c>', '<Cmd>BufferClose<CR>', { noremap = true, silent = true })
 
--- NvimTree keymaps
-vim.keymap.set('n', '<A-f>', '<Cmd>NvimTreeToggle<CR>')
+-- Telescope keymaps
+vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
+vim.keymap.set('n', '<leader>/', function()
+  require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+    previewer = false,
+  })
+end, { desc = '[/] Fuzzily search in current buffer' })
+
+vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, { desc = '[F]ind [F]iles' })
+vim.keymap.set('n', '<leader>fr', require('telescope.builtin').oldfiles, { desc = '[F]ind [R]ecently opened files' })
+vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags, { desc = '[F]ind [H]elp' })
+vim.keymap.set('n', '<leader>fd', require('telescope.builtin').live_grep, { desc = '[F]ind in [D]irectory' })
+vim.keymap.set('n', '<leader>fb', '<Cmd>Telescope file_browser<CR>', { desc = '[F]ile [B]rowser' })
+
+vim.keymap.set('n', '<leader>gc', require('telescope.builtin').git_commits, { desc = '[G]it [C]ommits' })
+vim.keymap.set('n', '<leader>gs', require('telescope.builtin').git_status, { desc = '[G]it [S]tatus' })
+vim.keymap.set('n', '<leader>gb', require('telescope.builtin').treesitter, { desc = '[G]it [B]ranches' })
+vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files, { desc = '[G]it [F]iles' })
 
 --  Configure LSP
 --  This function gets run when an LSP connects to a particular buffer.
@@ -634,7 +659,12 @@ local on_attach = function(_, bufnr)
 end
 
 local servers = {
+  cssls = {},
+  dockerls = {},
   eslint = {},
+  jdtls = {},
+  jsonls = {},
+  prismals = {},
   tailwindcss = {},
   tsserver = {},
   lua_ls = {
@@ -709,6 +739,17 @@ local colors = {
   teal = '#56b6c2',
   light_orange = '#d19a66',
 }
+
+-- General
+vim.api.nvim_set_hl(0, "@variable", { fg = colors.red })
+vim.api.nvim_set_hl(0, "@lsp.type.variable", { fg = colors.red })
+
+-- General transparency
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = 'none' })
+vim.api.nvim_set_hl(0, "FloatBorder", { bg = 'none' })
+vim.api.nvim_set_hl(0, "FloatShadow", { bg = 'none' })
+vim.api.nvim_set_hl(0, "FloatShadowThrough", { bg = 'none' })
+
 -- Barbar transparency
 vim.api.nvim_set_hl(0, "BufferCurrent", { fg = colors.purple })
 
