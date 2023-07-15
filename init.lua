@@ -95,10 +95,13 @@ require('lazy').setup({
   {
     -- Theme inspired by Atom
     'navarasu/onedark.nvim',
-    priority = 1000,
-    config = function()
-      vim.cmd.colorscheme 'onedark'
-    end,
+    opts = {
+      transparent = true,
+      theme = 'deep',
+      lualine = {
+        transparent = true,
+      },
+      }
   },
   {
     -- Set lualine as statusline
@@ -109,13 +112,21 @@ require('lazy').setup({
         theme = 'onedark',
         component_separators = { left = '', right = '' },
         section_separators = { left = '', right = '' },
-        disabled_filetypes = { 'NvimTree' }
       },
       sections = {
         lualine_a = { 'mode' },
-        lualine_b = { 'diagnostics' },
+        lualine_b = {
+          {
+            'filename',
+            file_status = false,
+            newfile_status = false,
+            path = 0,
+            symbols = {
+              modified = '', readonly = '', unnamed = '[No Name]', newfile = '[New]', }
+          },
+        },
         lualine_c = {},
-        lualine_x = {},
+        lualine_x = { 'diagnostics' },
         lualine_y = { 'diff' },
         lualine_z = { 'branch' }
       },
@@ -248,39 +259,10 @@ require('lazy').setup({
           "lualine_a_inactive",
 
           "lualine_b_normal",
-          "lualine_b_insert",
           "lualine_b_visual",
           "lualine_b_replace",
           "lualine_b_command",
           "lualine_b_inactive",
-
-          "lualine_b_diagnostics_error_normal",
-          "lualine_b_diagnostics_error_insert",
-          "lualine_b_diagnostics_error_visual",
-          "lualine_b_diagnostics_error_replace",
-          "lualine_b_diagnostics_error_command",
-          "lualine_b_diagnostics_error_inactive",
-
-          "lualine_b_diagnostics_warn_normal",
-          "lualine_b_diagnostics_warn_insert",
-          "lualine_b_diagnostics_warn_visual",
-          "lualine_b_diagnostics_warn_replace",
-          "lualine_b_diagnostics_warn_command",
-          "lualine_b_diagnostics_warn_inactive",
-
-          "lualine_b_diagnostics_info_normal",
-          "lualine_b_diagnostics_info_insert",
-          "lualine_b_diagnostics_info_visual",
-          "lualine_b_diagnostics_info_replace",
-          "lualine_b_diagnostics_info_command",
-          "lualine_b_diagnostics_info_inactive",
-
-          "lualine_b_diagnostics_hint_normal",
-          "lualine_b_diagnostics_hint_insert",
-          "lualine_b_diagnostics_hint_visual",
-          "lualine_b_diagnostics_hint_replace",
-          "lualine_b_diagnostics_hint_command",
-          "lualine_b_diagnostics_hint_inactive",
 
           "lualine_c_normal",
           "lualine_c_insert",
@@ -295,6 +277,34 @@ require('lazy').setup({
           "lualine_x_replace",
           "lualine_x_command",
           "lualine_x_inactive",
+
+          "lualine_x_diagnostics_error_normal",
+          "lualine_x_diagnostics_error_insert",
+          "lualine_x_diagnostics_error_visual",
+          "lualine_x_diagnostics_error_replace",
+          "lualine_x_diagnostics_error_command",
+          "lualine_x_diagnostics_error_inactive",
+
+          "lualine_x_diagnostics_warn_normal",
+          "lualine_x_diagnostics_warn_insert",
+          "lualine_x_diagnostics_warn_visual",
+          "lualine_x_diagnostics_warn_replace",
+          "lualine_x_diagnostics_warn_command",
+          "lualine_x_diagnostics_warn_inactive",
+
+          "lualine_x_diagnostics_info_normal",
+          "lualine_x_diagnostics_info_insert",
+          "lualine_x_diagnostics_info_visual",
+          "lualine_x_diagnostics_info_replace",
+          "lualine_x_diagnostics_info_command",
+          "lualine_x_diagnostics_info_inactive",
+
+          "lualine_x_diagnostics_hint_normal",
+          "lualine_x_diagnostics_hint_insert",
+          "lualine_x_diagnostics_hint_visual",
+          "lualine_x_diagnostics_hint_replace",
+          "lualine_x_diagnostics_hint_command",
+          "lualine_x_diagnostics_hint_inactive",
 
           "lualine_y_normal",
           "lualine_y_insert",
@@ -356,6 +366,9 @@ require('lazy').setup({
     end
   }
 }, {})
+
+-- load ondark
+require("onedark").load()
 
 -- Settings
 -- Set highlight on search
@@ -424,7 +437,8 @@ vim.keymap.set("n", "ZZ", "<Nop>")
 vim.keymap.set("n", "<A-F>", "<cmd>lua vim.lsp.buf.format()<CR>")
 
 -- Remap for current word search and replace
-vim.keymap.set("n", "<leader>sr", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "Document [S]earch and [R]eplace" })
+vim.keymap.set("n", "<leader>sr", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
+  { desc = "Document [S]earch and [R]eplace" })
 
 -- Remap to keep cursor centered
 vim.keymap.set("n", "j", "jzz")
