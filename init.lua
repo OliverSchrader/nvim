@@ -522,6 +522,8 @@ require('telescope').setup {
       previewer = false,
       hijack_netrw = true,
       initial_mode = "normal",
+      git_status = false,
+      grouped = true,
     },
   },
 }
