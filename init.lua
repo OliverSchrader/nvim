@@ -101,7 +101,7 @@ require('lazy').setup({
       lualine = {
         transparent = true,
       },
-      }
+    }
   },
   {
     -- Set lualine as statusline
@@ -130,14 +130,6 @@ require('lazy').setup({
         lualine_y = { 'diff' },
         lualine_z = { 'branch' }
       },
-    },
-  },
-  {
-    -- Add indentation guides even on blank lines
-    'lukas-reineke/indent-blankline.nvim',
-    opts = {
-      char = '┊',
-      show_trailing_blankline_indent = false,
     },
   },
   { 'numToStr/Comment.nvim',         opts = {} },
@@ -362,6 +354,25 @@ require('lazy').setup({
     config = function()
       require("auto-session").setup {
         log_level = "error",
+      }
+    end
+  },
+  -- indent-blankline
+  {
+    'lukas-reineke/indent-blankline.nvim',
+    config = function()
+      require("indent_blankline").setup {
+        char = "│",
+        show_trailing_blankline_indent = false,
+        show_first_indent_level = true,
+        char_highlight_list = {
+          "IndentBlanklineIndent1",
+          "IndentBlanklineIndent2",
+          "IndentBlanklineIndent3",
+          "IndentBlanklineIndent4",
+          "IndentBlanklineIndent5",
+          "IndentBlanklineIndent6",
+        }
       }
     end
   }
@@ -754,11 +765,33 @@ local colors = {
   green = '#98c379',
   teal = '#56b6c2',
   light_orange = '#d19a66',
+  grey = '#171717',
 }
 
 -- General
 vim.api.nvim_set_hl(0, "@variable", { fg = colors.red })
 vim.api.nvim_set_hl(0, "@lsp.type.variable", { fg = colors.red })
+vim.api.nvim_set_hl(0, "IncSearch", { fg = colors.grey, bg = colors.purple })
+vim.api.nvim_set_hl(0, "Visual", { fg = colors.grey, bg = colors.purple })
+
+-- Telescope Theme
+vim.api.nvim_set_hl(0, "TelescopeSelection", { fg = colors.grey, bg = colors.purple })
+vim.api.nvim_set_hl(0, "TelescopeResultsBorder", { fg = colors.purple })
+vim.api.nvim_set_hl(0, "TelescopePreviewBorder", { fg = colors.purple })
+vim.api.nvim_set_hl(0, "TelescopePromptBorder", { fg = colors.purple })
+vim.api.nvim_set_hl(0, "TelescopePreviewRead", { fg = colors.purple })
+vim.api.nvim_set_hl(0, "TelescopePreviewBlock", { fg = colors.purple })
+vim.api.nvim_set_hl(0, "TelescopePreviewPipe", { fg = colors.purple })
+vim.api.nvim_set_hl(0, "TelescopePreviewCharDev", { fg = colors.purple })
+
+-- indent-blankline
+vim.api.nvim_set_hl(0, "IndentBlanklineIndent1", { fg = colors.purple })
+vim.api.nvim_set_hl(0, "IndentBlanklineIndent2", { fg = colors.green })
+vim.api.nvim_set_hl(0, "IndentBlanklineIndent3", { fg = colors.blue })
+vim.api.nvim_set_hl(0, "IndentBlanklineIndent4", { fg = colors.yellow })
+vim.api.nvim_set_hl(0, "IndentBlanklineIndent5", { fg = colors.red })
+vim.api.nvim_set_hl(0, "IndentBlanklineIndent6", { fg = colors.teal })
+vim.api.nvim_set_hl(0, "IndentBlanklineIndent7", { fg = colors.light_orange })
 
 -- General transparency
 vim.api.nvim_set_hl(0, "NormalFloat", { bg = 'none' })
