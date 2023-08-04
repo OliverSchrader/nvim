@@ -21,6 +21,8 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
+  -- Icons
+  'nvim-tree/nvim-web-devicons',
   -- Git related plugins
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
@@ -67,16 +69,18 @@ require('lazy').setup({
     'lewis6991/gitsigns.nvim',
     opts = {
       signs = {
-        add = { text = '+' },
-        change = { text = '~' },
-        delete = { text = '_' },
-        topdelete = { text = '‾' },
-        changedelete = { text = '~' },
+        add = { text = '•' },
+        change = { text = '•' },
+        delete = { text = '•' },
+        topdelete = { text = '•' },
+        changedelete = { text = '•' },
+        untracked = { text = '•' },
       },
       current_line_blame = true,
       current_line_blame_opts = {
         delay = 500,
       },
+      current_line_blame_formatter = '<author> • <author_time:%Y-%m-%d> • <summary>',
       preview_config = {
         border = 'rounded',
         style = 'minimal',
@@ -85,10 +89,10 @@ require('lazy').setup({
         col = 1
       },
       on_attach = function(bufnr)
-        vim.keymap.set('n', '<leader>gp', require('gitsigns').prev_hunk,
-          { buffer = bufnr, desc = '[G]o to [P]revious Hunk' })
-        vim.keymap.set('n', '<leader>gn', require('gitsigns').next_hunk, { buffer = bufnr, desc = '[G]o to [N]ext Hunk' })
-        vim.keymap.set('n', '<leader>ph', require('gitsigns').preview_hunk, { buffer = bufnr, desc = '[P]review [H]unk' })
+        vim.keymap.set('n', '<leader>gk', require('gitsigns').prev_hunk,
+          { buffer = bufnr, desc = 'Go to Previous Hunk' })
+        vim.keymap.set('n', '<leader>gj', require('gitsigns').next_hunk, { buffer = bufnr, desc = 'Go to Next Hunk' })
+        vim.keymap.set('n', '<leader>gp', require('gitsigns').preview_hunk, { buffer = bufnr, desc = 'Preview Hunk' })
       end,
     },
   },
@@ -193,16 +197,9 @@ require('lazy').setup({
   -- Tabs - BarBar
   {
     'romgrk/barbar.nvim',
-    dependencies = {
-      'lewis6991/gitsigns.nvim',
-      'nvim-tree/nvim-web-devicons',
-    },
     init = function() vim.g.barbar_auto_setup = false end,
     opts = {
       highlight_inactive_file_icons = true,
-      sidebar_filetypes = {
-        NvimTree = true,
-      }
     },
   },
   -- Transparency
@@ -341,13 +338,6 @@ require('lazy').setup({
   {
     'github/copilot.vim',
   },
-  -- Autoclose
-  {
-    'm4xshen/autoclose.nvim',
-    config = function()
-      require("autoclose").setup()
-    end
-  },
   -- Session management
   {
     'rmagatti/auto-session',
@@ -372,9 +362,29 @@ require('lazy').setup({
           "IndentBlanklineIndent4",
           "IndentBlanklineIndent5",
           "IndentBlanklineIndent6",
+          "IndentBlanklineIndent7",
         }
       }
     end
+  },
+  -- Terminal
+  {
+    'akinsho/toggleterm.nvim',
+    version = "*",
+    opts = {
+      open_mapping = [[<A-/>]],
+      direction = 'float',
+      float_opts = {
+        border = 'curved',
+        width = 160,
+      },
+      highlights = {
+        FloatBorder = {
+          link = 'TelescopeResultsBorder'
+        },
+      },
+      shell = 'bash.exe',
+    }
   }
 }, {})
 
@@ -385,10 +395,8 @@ require("onedark").load()
 -- Set highlight on search
 vim.o.hlsearch = false
 
--- Make line numbers default
-vim.wo.number = true
-
 -- Enable relative line numbers
+vim.wo.number = true
 vim.wo.relativenumber = true;
 
 -- Enable mouse mode
@@ -410,13 +418,16 @@ vim.o.smartcase = true
 -- Keep signcolumn on by default
 vim.wo.signcolumn = 'yes'
 
+-- Disable mode displays
+vim.o.showmode = false
+
 -- Decrease update time
 vim.o.updatetime = 250
 vim.o.timeout = true
 vim.o.timeoutlen = 300
 
 -- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menuone,noselect'
+vim.o.completeopt = 'menuone,noselect,preview,noinsert'
 
 -- Required for icons along with a patched font
 vim.o.termguicolors = true
@@ -451,18 +462,9 @@ vim.keymap.set("n", "<A-F>", "<cmd>lua vim.lsp.buf.format()<CR>")
 vim.keymap.set("n", "<leader>sr", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
   { desc = "Document [S]earch and [R]eplace" })
 
--- Remap to keep cursor centered
-vim.keymap.set("n", "j", "jzz")
-vim.keymap.set("n", "k", "kzz")
+-- Remap to keep cursor centered during half page jumps
 vim.keymap.set('n', '<A-k>', '<C-u>zz')
 vim.keymap.set('n', '<A-j>', '<C-d>zz')
-vim.keymap.set("n", "n", "nzzzv")
-vim.keymap.set("n", "N", "Nzzzv")
-vim.keymap.set("n", "G", "Gzz")
-vim.keymap.set("n", "p", "pzz")
-vim.keymap.set("n", "P", "Pzz")
-vim.keymap.set("n", "u", "uzz")
-vim.keymap.set("n", "<C-r>", "<C-r>zz")
 
 -- Remap to delete highlighted text into the void register and then paste
 vim.keymap.set("x", "<leader>p", [["_dP]])
@@ -473,7 +475,7 @@ vim.keymap.set("i", "<A-j>", "<Down>")
 vim.keymap.set("i", "<A-h>", "<Left>")
 vim.keymap.set("i", "<A-l>", "<Right>")
 
--- Remap to disable arrow keys
+-- Remap to disable keys
 vim.keymap.set("n", "<Up>", "<Nop>")
 vim.keymap.set("n", "<Down>", "<Nop>")
 vim.keymap.set("n", "<Left>", "<Nop>")
@@ -482,6 +484,8 @@ vim.keymap.set("i", "<Up>", "<Nop>")
 vim.keymap.set("i", "<Down>", "<Nop>")
 vim.keymap.set("i", "<Left>", "<Nop>")
 vim.keymap.set("i", "<Right>", "<Nop>")
+vim.keymap.set("i", "<A-<", "<Nop>")
+vim.keymap.set("i", "<A->>", "<Nop>")
 vim.keymap.set("v", "<Up>", "<Nop>")
 vim.keymap.set("v", "<Down>", "<Nop>")
 vim.keymap.set("v", "<Left>", "<Nop>")
@@ -509,21 +513,31 @@ require('telescope').setup {
         ['<C-d>'] = false,
       },
     },
+    path_display = {
+      "tail",
+    },
   },
   pickers = {
     buffers = {
       theme = "dropdown",
       previewer = false,
       initial_mode = "normal",
+      sort_lastused = true,
+      mappings = {
+        n = {
+          ["d"] = "delete_buffer",
+        },
+      },
     },
     find_files = {
       theme = "dropdown",
       previewer = false,
+      hidden = true,
     },
     oldfiles = {
       theme = "dropdown",
       previewer = false,
-      initial_mode = "normal",
+      hidden = true,
     },
   },
   extensions = {
@@ -559,7 +573,7 @@ require('nvim-treesitter.configs').setup {
     'tsx',
     'typescript',
     'vimdoc',
-    'vim'
+    'vim',
   },
   auto_install = true,
   highlight = { enable = true },
@@ -567,8 +581,8 @@ require('nvim-treesitter.configs').setup {
   incremental_selection = {
     enable = true,
     keymaps = {
-      init_selection = '<c-space>',
-      node_incremental = '<c-space>',
+      init_selection = '<A-w>',
+      node_incremental = '<A-w>',
       scope_incremental = '<c-s>',
       node_decremental = '<M-space>',
     },
@@ -739,8 +753,8 @@ cmp.setup {
     end,
   },
   mapping = cmp.mapping.preset.insert {
-    ['<A-n>'] = cmp.mapping.select_next_item(),
-    ['<A-p>'] = cmp.mapping.select_prev_item(),
+    ['<A-j>'] = cmp.mapping.select_next_item(),
+    ['<A-k>'] = cmp.mapping.select_prev_item(),
     ['<CR>'] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
@@ -765,26 +779,24 @@ local colors = {
   green = '#98c379',
   teal = '#56b6c2',
   light_orange = '#d19a66',
-  grey = '#171717',
+  grey = '#18181c',
 }
 
 -- General
-vim.api.nvim_set_hl(0, "@variable", { fg = colors.red })
-vim.api.nvim_set_hl(0, "@lsp.type.variable", { fg = colors.red })
-vim.api.nvim_set_hl(0, "IncSearch", { fg = colors.grey, bg = colors.purple })
-vim.api.nvim_set_hl(0, "Visual", { fg = colors.grey, bg = colors.purple })
+vim.api.nvim_set_hl(0, "Visual", { bg = colors.grey })
+vim.api.nvim_set_hl(0, "IncSearch", { link = "Visual" })
 
 -- Telescope Theme
-vim.api.nvim_set_hl(0, "TelescopeSelection", { fg = colors.grey, bg = colors.purple })
+vim.api.nvim_set_hl(0, "TelescopeSelection", { link = "Visual" })
 vim.api.nvim_set_hl(0, "TelescopeResultsBorder", { fg = colors.purple })
-vim.api.nvim_set_hl(0, "TelescopePreviewBorder", { fg = colors.purple })
-vim.api.nvim_set_hl(0, "TelescopePromptBorder", { fg = colors.purple })
-vim.api.nvim_set_hl(0, "TelescopePreviewRead", { fg = colors.purple })
-vim.api.nvim_set_hl(0, "TelescopePreviewBlock", { fg = colors.purple })
-vim.api.nvim_set_hl(0, "TelescopePreviewPipe", { fg = colors.purple })
-vim.api.nvim_set_hl(0, "TelescopePreviewCharDev", { fg = colors.purple })
+vim.api.nvim_set_hl(0, "TelescopePreviewBorder", { link = "TelescopeResultsBorder" })
+vim.api.nvim_set_hl(0, "TelescopePromptBorder", { link = "TelescopeResultsBorder" })
+vim.api.nvim_set_hl(0, "TelescopePreviewRead", { link = "TelescopeResultsBorder" })
+vim.api.nvim_set_hl(0, "TelescopePreviewBlock", { link = "TelescopeResultsBorder" })
+vim.api.nvim_set_hl(0, "TelescopePreviewPipe", { link = "TelescopeResultsBorder" })
+vim.api.nvim_set_hl(0, "TelescopePreviewCharDev", { link = "TelescopeResultsBorder" })
 
--- indent-blankline
+-- Indentation
 vim.api.nvim_set_hl(0, "IndentBlanklineIndent1", { fg = colors.purple })
 vim.api.nvim_set_hl(0, "IndentBlanklineIndent2", { fg = colors.green })
 vim.api.nvim_set_hl(0, "IndentBlanklineIndent3", { fg = colors.blue })
