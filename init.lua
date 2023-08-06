@@ -6,6 +6,9 @@ vim.g.maplocalleader = ' '
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
+-- Required for icons along with a patched font
+vim.o.termguicolors = true
+
 -- Install package manager
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
@@ -169,7 +172,6 @@ require('lazy').setup({
     config = function()
       local sources = {
         require('null-ls').builtins.formatting.prettier,
-        require('null-ls').builtins.diagnostics.eslint,
       }
 
       local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
@@ -228,16 +230,6 @@ require('lazy').setup({
           "BufferVisibleSignRight",
           "BufferVisibleTarget",
           "BufferVisibleIndex",
-
-          -- NvimTree
-          "NvimTreeNormal",
-          "NvimTreeVertSplit",
-          "NvimTreeStatusLine",
-          "NvimTreeStatusLineNC",
-          "NvimTreeWindowPicker",
-          "NvimTreeEndOfBuffer",
-          "NvimTreeRootFolder",
-          "NvimTreeCursorLine",
 
           -- Lualine
           "lualine_a_normal",
@@ -428,9 +420,6 @@ vim.o.timeoutlen = 300
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect,preview,noinsert'
-
--- Required for icons along with a patched font
-vim.o.termguicolors = true
 
 -- Tab width
 vim.opt.tabstop = 2;
@@ -699,6 +688,14 @@ local on_attach = function(_, bufnr)
   end, { desc = 'Format current buffer with LSP' })
 end
 
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+  border = "rounded",
+})
+
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+  border = "rounded",
+})
+
 local servers = {
   cssls = {},
   dockerls = {},
@@ -761,8 +758,13 @@ cmp.setup {
     },
   },
   window = {
-    completion = cmp.config.window.bordered(),
-    documentation = cmp.config.window.bordered(),
+    completion = cmp.config.window.bordered({
+      winhighlight = 'Normal:Normal,FloatBorder:TelescopeResultsBorder,CursorLine:Visual,Search:None',
+      scrollbar = false,
+    }),
+    documentation = cmp.config.window.bordered({
+      winhighlight = 'Normal:Normal,FloatBorder:TelescopeResultsBorder,CursorLine:Visual,Search:None',
+    }),
   },
   sources = {
     { name = 'nvim_lsp' },
@@ -785,6 +787,8 @@ local colors = {
 -- General
 vim.api.nvim_set_hl(0, "Visual", { bg = colors.grey })
 vim.api.nvim_set_hl(0, "IncSearch", { link = "Visual" })
+vim.api.nvim_set_hl(0, "VertSplit", { link = "TelescopeResultsBorder" })
+vim.api.nvim_set_hl(0, "LspFloatWinBorder", { link = "TelescopeResultsBorder" })
 
 -- Telescope Theme
 vim.api.nvim_set_hl(0, "TelescopeSelection", { link = "Visual" })
@@ -805,20 +809,20 @@ vim.api.nvim_set_hl(0, "IndentBlanklineIndent5", { fg = colors.red })
 vim.api.nvim_set_hl(0, "IndentBlanklineIndent6", { fg = colors.teal })
 vim.api.nvim_set_hl(0, "IndentBlanklineIndent7", { fg = colors.light_orange })
 
--- General transparency
-vim.api.nvim_set_hl(0, "NormalFloat", { bg = 'none' })
-vim.api.nvim_set_hl(0, "FloatBorder", { bg = 'none' })
-vim.api.nvim_set_hl(0, "FloatShadow", { bg = 'none' })
-vim.api.nvim_set_hl(0, "FloatShadowThrough", { bg = 'none' })
-
--- Barbar transparency
-vim.api.nvim_set_hl(0, "BufferCurrent", { fg = colors.purple })
-
--- Lualine transparency
+-- Lualine Mode Colors
 vim.api.nvim_set_hl(0, "lualine_a_normal", { fg = colors.green })
 vim.api.nvim_set_hl(0, "lualine_a_insert", { fg = colors.blue })
 vim.api.nvim_set_hl(0, "lualine_a_visual", { fg = colors.purple })
 vim.api.nvim_set_hl(0, "lualine_a_command", { fg = colors.light_orange })
+
+-- General transparency
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = 'none' })
+vim.api.nvim_set_hl(0, "FloatBorder", { link = "TelescopeResultsBorder" })
+vim.api.nvim_set_hl(0, "FloatShadow", { link = "TelescopeResultsBorder" })
+vim.api.nvim_set_hl(0, "FloatShadowThrough", { link = "TelescopeResultsBorder" })
+
+-- Barbar transparency
+vim.api.nvim_set_hl(0, "BufferCurrent", { fg = colors.purple })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
