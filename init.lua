@@ -81,7 +81,7 @@ require('lazy').setup({
       },
       current_line_blame = true,
       current_line_blame_opts = {
-        delay = 500,
+        delay = 250,
       },
       current_line_blame_formatter = '<author> • <author_time:%Y-%m-%d> • <summary>',
       preview_config = {
@@ -92,8 +92,7 @@ require('lazy').setup({
         col = 1
       },
       on_attach = function(bufnr)
-        vim.keymap.set('n', '<leader>gk', require('gitsigns').prev_hunk,
-          { buffer = bufnr, desc = 'Go to Previous Hunk' })
+        vim.keymap.set('n', '<leader>gk', require('gitsigns').prev_hunk, { buffer = bufnr, desc = 'Go to Previous Hunk' })
         vim.keymap.set('n', '<leader>gj', require('gitsigns').next_hunk, { buffer = bufnr, desc = 'Go to Next Hunk' })
         vim.keymap.set('n', '<leader>gp', require('gitsigns').preview_hunk, { buffer = bufnr, desc = 'Preview Hunk' })
       end,
@@ -132,14 +131,22 @@ require('lazy').setup({
               modified = '', readonly = '', unnamed = '[No Name]', newfile = '[New]', }
           },
         },
-        lualine_c = {},
+        lualine_c = {
+          {
+            'filetype',
+            icon_only = true,
+          },
+        },
         lualine_x = { 'diagnostics' },
         lualine_y = { 'diff' },
         lualine_z = { 'branch' }
       },
     },
   },
-  { 'numToStr/Comment.nvim',         opts = {} },
+  {
+    'numToStr/Comment.nvim',
+    opts = {}
+  },
   -- Telescope
   { 'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' } },
   -- Telescope File Browser
@@ -147,12 +154,8 @@ require('lazy').setup({
     "nvim-telescope/telescope-file-browser.nvim",
   },
   -- Fuzzy Finder Algorithm which requires local dependencies to be built.
-  -- Only load if `make` is available. Make sure you have the system
-  -- requirements installed.
   {
     'nvim-telescope/telescope-fzf-native.nvim',
-    -- NOTE: If you are having trouble with this installation,
-    --       refer to the README for telescope-fzf-native for more instructions.
     build = 'make',
     cond = function()
       return vim.fn.executable 'make' == 1
@@ -202,6 +205,7 @@ require('lazy').setup({
     init = function() vim.g.barbar_auto_setup = false end,
     opts = {
       highlight_inactive_file_icons = true,
+      insert_at_end = true,
     },
   },
   -- Transparency
@@ -377,7 +381,18 @@ require('lazy').setup({
       },
       shell = 'bash.exe',
     }
-  }
+  },
+  -- Autoclose
+  {
+    'm4xshen/autoclose.nvim',
+    config = function()
+      require("autoclose").setup({
+        options = {
+          -- pair_spaces = true,
+        }
+      })
+    end
+  },
 }, {})
 
 -- load ondark
@@ -426,6 +441,10 @@ vim.opt.tabstop = 2;
 vim.opt.softtabstop = 2;
 vim.opt.shiftwidth = 2;
 
+vim.diagnostic.config {
+  float = { border = 'rounded' },
+}
+
 -- Basic Keymaps
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
@@ -473,12 +492,16 @@ vim.keymap.set("i", "<Up>", "<Nop>")
 vim.keymap.set("i", "<Down>", "<Nop>")
 vim.keymap.set("i", "<Left>", "<Nop>")
 vim.keymap.set("i", "<Right>", "<Nop>")
-vim.keymap.set("i", "<A-<", "<Nop>")
-vim.keymap.set("i", "<A->>", "<Nop>")
 vim.keymap.set("v", "<Up>", "<Nop>")
 vim.keymap.set("v", "<Down>", "<Nop>")
 vim.keymap.set("v", "<Left>", "<Nop>")
 vim.keymap.set("v", "<Right>", "<Nop>")
+
+vim.keymap.set("i", "<A-<>", "<Nop>")
+vim.keymap.set("i", "<A->>", "<Nop>")
+
+-- Remap to leave insert mode in terminal
+vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
 
 -- Highlight on yank
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
@@ -508,8 +531,6 @@ require('telescope').setup {
   },
   pickers = {
     buffers = {
-      theme = "dropdown",
-      previewer = false,
       initial_mode = "normal",
       sort_lastused = true,
       mappings = {
@@ -519,13 +540,9 @@ require('telescope').setup {
       },
     },
     find_files = {
-      theme = "dropdown",
-      previewer = false,
       hidden = true,
     },
     oldfiles = {
-      theme = "dropdown",
-      previewer = false,
       hidden = true,
     },
   },
@@ -533,7 +550,6 @@ require('telescope').setup {
     file_browser = {
       hidden = true,
       theme = "dropdown",
-      previewer = false,
       hijack_netrw = true,
       initial_mode = "normal",
       git_status = false,
@@ -632,6 +648,7 @@ vim.keymap.set('n', '<A-.>', '<Cmd>BufferNext<CR>', { noremap = true, silent = t
 vim.keymap.set('n', '<A-<>', '<Cmd>BufferMovePrevious<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<A->>', '<Cmd>BufferMoveNext<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<A-c>', '<Cmd>BufferClose<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>bp', '<Cmd>BufferPick<CR>', { noremap = true, silent = true, desc = 'Pick buffer' })
 
 -- Telescope keymaps
 vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
@@ -642,7 +659,7 @@ vim.keymap.set('n', '<leader>/', function()
 end, { desc = '[/] Fuzzily search in current buffer' })
 
 vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, { desc = '[F]ind [F]iles' })
-vim.keymap.set('n', '<leader>fr', require('telescope.builtin').oldfiles, { desc = '[F]ind [R]ecently opened files' })
+vim.keymap.set('n', '<leader>fo', require('telescope.builtin').oldfiles, { desc = '[F]ind [O]ld files' })
 vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags, { desc = '[F]ind [H]elp' })
 vim.keymap.set('n', '<leader>fd', require('telescope.builtin').live_grep, { desc = '[F]ind in [D]irectory' })
 vim.keymap.set('n', '<leader>fb', '<Cmd>Telescope file_browser<CR>', { desc = '[F]ile [B]rowser' })
