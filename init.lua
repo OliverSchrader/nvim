@@ -205,7 +205,6 @@ require('lazy').setup({
     init = function() vim.g.barbar_auto_setup = false end,
     opts = {
       highlight_inactive_file_icons = true,
-      insert_at_end = true,
     },
   },
   -- Transparency
@@ -388,7 +387,7 @@ require('lazy').setup({
     config = function()
       require("autoclose").setup({
         options = {
-          -- pair_spaces = true,
+          pair_spaces = true,
         }
       })
     end
