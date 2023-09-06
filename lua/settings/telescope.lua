@@ -1,8 +1,7 @@
 require('telescope').setup {
   defaults = {
     layout_config = {
-
-      prompt_position = 'top',
+      prompt_position = 'bottom',
     },
     mappings = {
       i = {
@@ -16,10 +15,8 @@ require('telescope').setup {
   },
   pickers = {
     buffers = {
-      initial_mode = 'normal',
+      initial_mode = 'insert',
       ignore_current_buffer = true,
-      theme = 'dropdown',
-      previewer = false,
       sort_lastused = true,
       sort_mru = true,
       mappings = {
@@ -30,24 +27,21 @@ require('telescope').setup {
     },
     find_files = {
       hidden = true,
-      theme = 'dropdown',
-      previewer = false,
     },
     oldfiles = {
       hidden = true,
-      theme = 'dropdown',
-      previewer = false,
     },
   },
   extensions = {
     file_browser = {
       hidden = true,
       theme = 'dropdown',
-      previewer = false,
       hijack_netrw = true,
-      initial_mode = 'normal',
       git_status = false,
       grouped = true,
+      layout_config = {
+        prompt_position = 'top',
+      },
     },
   },
 }

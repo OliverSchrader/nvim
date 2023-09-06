@@ -24,13 +24,13 @@ return {
         },
       },
       lualine_c = {
-        -- {
-        --   'filetype',
-        --   icon_only = true,
-        --   icon = {
-        --     align = 'left',
-        --   }
-        -- },
+        {
+          'filetype',
+          icon_only = true,
+          icon = {
+            align = 'left',
+          }
+        },
       },
       lualine_x = { 'diagnostics' },
       lualine_y = { 'diff' },
