@@ -16,9 +16,14 @@ require('telescope').setup {
   pickers = {
     buffers = {
       initial_mode = 'insert',
+      theme = 'dropdown',
+      previewer = false,
       ignore_current_buffer = true,
       sort_lastused = true,
       sort_mru = true,
+      layout_config = {
+        prompt_position = 'top',
+      },
       mappings = {
         n = {
           ['d'] = 'delete_buffer',

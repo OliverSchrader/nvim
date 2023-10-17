@@ -14,11 +14,11 @@ vim.api.nvim_set_hl(0, 'Visual', { bg = colors.grey })
 vim.api.nvim_set_hl(0, 'IncSearch', { link = 'Visual' })
 vim.api.nvim_set_hl(0, 'VertSplit', { link = 'TelescopeResultsBorder' })
 vim.api.nvim_set_hl(0, 'LspFloatWinBorder', { link = 'TelescopeResultsBorder' })
-vim.api.nvim_set_hl(0, 'Folded', { fg = colors.light_orange })
+vim.api.nvim_set_hl(0, 'Folded', { fg = colors.yellow })
 
 -- Telescope
 vim.api.nvim_set_hl(0, 'TelescopeSelection', { link = 'Visual' })
-vim.api.nvim_set_hl(0, 'TelescopeResultsBorder', { fg = colors.purple })
+vim.api.nvim_set_hl(0, 'TelescopeResultsBorder', { fg = colors.blue })
 vim.api.nvim_set_hl(0, 'TelescopePreviewBorder', { link = 'TelescopeResultsBorder' })
 vim.api.nvim_set_hl(0, 'TelescopePromptBorder', { link = 'TelescopeResultsBorder' })
 vim.api.nvim_set_hl(0, 'TelescopePreviewRead', { link = 'TelescopeResultsBorder' })
