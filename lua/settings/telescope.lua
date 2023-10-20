@@ -1,7 +1,7 @@
 require('telescope').setup {
   defaults = {
     layout_config = {
-      prompt_position = 'bottom',
+      prompt_position = 'top',
     },
     mappings = {
       i = {
@@ -32,9 +32,17 @@ require('telescope').setup {
     },
     find_files = {
       hidden = true,
+      theme = 'dropdown',
+      previewer = false,
+    },
+    live_grep = {
+      sorting_strategy = 'ascending',
     },
     oldfiles = {
       hidden = true,
+      theme = 'dropdown',
+      previewer = false,
+      initial_mode = 'normal',
     },
     git_status = {
       theme = 'dropdown',
@@ -52,6 +60,7 @@ require('telescope').setup {
       hijack_netrw = true,
       git_status = false,
       grouped = true,
+      initial_mode = 'normal',
       layout_config = {
         prompt_position = 'top',
       },
