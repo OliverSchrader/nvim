@@ -78,3 +78,5 @@ vim.keymap.set('n', '<leader>fd', require('telescope.builtin').live_grep, { desc
 vim.keymap.set('n', '<leader>/', require('telescope.builtin').current_buffer_fuzzy_find, { desc = 'Find in buffer' })
 vim.keymap.set('n', '<leader>ss', require('telescope.builtin').spell_suggest, { desc = '[S]pell [S]uggess' })
 vim.keymap.set('n', '<leader>fb', '<Cmd>Telescope file_browser<CR>', { desc = '[F]ile [B]rowser' })
+vim.keymap.set('n', '<leader>mh', '<Cmd>Telescope noice<CR>', { desc = '[M]essage [H]istory' })
+vim.keymap.set('n', '<leader>gs', '<Cmd>Telescope git_status<CR>', { desc = '[G]it [S]tatus' })

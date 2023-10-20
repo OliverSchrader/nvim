@@ -1,5 +1,6 @@
 require('nvim-treesitter.configs').setup {
   ensure_installed = {
+    'bash',
     'css',
     'html',
     'java',
@@ -7,6 +8,8 @@ require('nvim-treesitter.configs').setup {
     'json',
     'lua',
     'markdown',
+    'markdown_inline',
+    'regex',
     'scss',
     'tsx',
     'typescript',

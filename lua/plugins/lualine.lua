@@ -32,9 +32,21 @@ return {
           }
         },
       },
-      lualine_x = { 'diagnostics' },
+      lualine_x = {
+        'diagnostics',
+        {
+        }
+      },
       lualine_y = { 'diff' },
       lualine_z = { 'branch' }
+    },
+    inactive_sections = {
+      lualine_a = {},
+      lualine_b = {},
+      lualine_c = {},
+      lualine_x = {},
+      lualine_y = {},
+      lualine_z = {}
     },
   },
 }

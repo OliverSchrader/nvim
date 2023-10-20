@@ -36,6 +36,14 @@ require('telescope').setup {
     oldfiles = {
       hidden = true,
     },
+    git_status = {
+      theme = 'dropdown',
+      previewer = false,
+      initial_mode = 'normal',
+      layout_config = {
+        prompt_position = 'top',
+      },
+    },
   },
   extensions = {
     file_browser = {
@@ -48,8 +56,22 @@ require('telescope').setup {
         prompt_position = 'top',
       },
     },
+    ["ui-select"] = {
+      require("telescope.themes").get_dropdown {
+        initial_mode = 'normal',
+        sorting_strategy = 'ascending',
+        layout_strategy = 'center',
+        layout_config = {
+          prompt_position = 'top',
+          width = 0.4,
+          height = 0.3,
+        },
+      },
+    },
   },
 }
 
 pcall(require('telescope').load_extension, 'fzf')
 pcall(require('telescope').load_extension, 'file_browser')
+pcall(require('telescope').load_extension, 'noice')
+pcall(require('telescope').load_extension, 'ui-select')
