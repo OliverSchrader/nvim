@@ -27,7 +27,7 @@ return {
 		]]
 		dashboard.section.header.val = vim.split(logo, "\n")
 		dashboard.section.buttons.val = {
-			dashboard.button("r", " " .. " Recent Files", ":Telescope oldfiles <CR>"),
+			dashboard.button("r", "󰦛 " .. " Restore Session", ":lua require('persistence').load()<cr>"),
 			dashboard.button("f", " " .. " Find File", ":Telescope find_files <CR>"),
 			dashboard.button("t", " " .. " Find Text", ":Telescope live_grep <CR>"),
 			dashboard.button("b", "󰙅 " .. " Browse Files", ":Telescope file_browser <CR>"),
