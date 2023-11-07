@@ -60,7 +60,8 @@ require('lazy').setup({
 }, {})
 
 require('neodev').setup()
-require('onedark').load()
+-- require('onedark').load()
+vim.cmd.colorscheme 'catppuccin'
 
 require('settings.settings')
 require('settings.keymaps')
