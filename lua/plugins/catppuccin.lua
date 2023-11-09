@@ -10,18 +10,11 @@ return {
 		no_italic = true,
 		custom_highlights = function(colors)
 			return {
-				IndentBlanklineIndent1 = { fg = colors.pink },
-				IndentBlanklineIndent2 = { fg = colors.blue },
-				IndentBlanklineIndent3 = { fg = colors.green },
-				IndentBlanklineIndent4 = { fg = colors.yellow },
-				IndentBlanklineIndent5 = { fg = colors.teal },
-				IndentBlanklineIndent6 = { fg = colors.lavender },
-				IndentBlanklineIndent7 = { fg = colors.red },
-				IlluminatedWordText    = { underline = true, bg = 'none' },
-				IlluminatedWordRead    = { underline = true, bg = 'none' },
-				IlluminatedWordWrite   = { underline = true, bg = 'none' },
-				illuminatedWord        = { underline = true, bg = 'none' },
-				illuminatedCurWord     = { underline = true, bg = 'none' },
+				IlluminatedWordText  = { underline = true, bg = 'none' },
+				IlluminatedWordRead  = { underline = true, bg = 'none' },
+				IlluminatedWordWrite = { underline = true, bg = 'none' },
+				illuminatedWord      = { underline = true, bg = 'none' },
+				illuminatedCurWord   = { underline = true, bg = 'none' },
 			}
 		end,
 		integrations = {

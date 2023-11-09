@@ -58,13 +58,6 @@ vim.keymap.set('v', '<Right>', '<Nop>')
 -- Remap to leave insert mode in terminal
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
 
--- Remap to make folds work better with indent-blankline
-vim.keymap.set('n', 'za', 'za<Cmd>IndentBlanklineRefresh<CR>', { noremap = true, silent = true })
-vim.keymap.set('n', 'zo', 'zo<Cmd>IndentBlanklineRefresh<CR>', { noremap = true, silent = true })
-vim.keymap.set('n', 'zc', 'zc<Cmd>IndentBlanklineRefresh<CR>', { noremap = true, silent = true })
-vim.keymap.set('n', 'zR', 'zR<Cmd>IndentBlanklineRefresh<CR>', { noremap = true, silent = true })
-vim.keymap.set('n', 'zx', 'zx<Cmd>IndentBlanklineRefresh<CR>', { noremap = true, silent = true })
-
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
