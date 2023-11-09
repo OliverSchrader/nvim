@@ -80,3 +80,24 @@ vim.keymap.set('n', '<leader>ss', require('telescope.builtin').spell_suggest, { 
 vim.keymap.set('n', '<leader>fb', '<Cmd>Telescope file_browser<CR>', { desc = '[F]ile [B]rowser' })
 vim.keymap.set('n', '<leader>mh', '<Cmd>Telescope noice<CR>', { desc = '[M]essage [H]istory' })
 vim.keymap.set('n', '<leader>gs', '<Cmd>Telescope git_status<CR>', { desc = '[G]it [S]tatus' })
+
+-- Copilot keymaps
+vim.keymap.set("i", '<Tab>', function()
+  if require("copilot.suggestion").is_visible() then
+    require("copilot.suggestion").accept()
+  else
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, false, true), "n", false)
+  end
+end, {
+  silent = true,
+})
+
+vim.keymap.set("i", '<S-Tab>', function()
+  if require("copilot.suggestion").is_visible() then
+    require("copilot.suggestion").dismiss()
+  else
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<S-Tab>", true, false, true), "n", false)
+  end
+end, {
+  silent = true,
+})

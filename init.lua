@@ -24,7 +24,6 @@ require('lazy').setup({
   'tpope/vim-rhubarb',
   'tpope/vim-sleuth',
   'RRethy/vim-illuminate',
-  'github/copilot.vim',
   {
     'folke/which-key.nvim',
     opts = {}
@@ -60,7 +59,7 @@ require('lazy').setup({
 }, {})
 
 require('neodev').setup()
-require('onedark').load()
+vim.cmd.colorscheme 'catppuccin'
 
 require('settings.settings')
 require('settings.keymaps')
