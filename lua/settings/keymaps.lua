@@ -9,6 +9,10 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 vim.keymap.set('n', '<A-h>', '<C-w>h')
 vim.keymap.set('n', '<A-l>', '<C-w>l')
 
+-- Remap for increasing/descreasing window width
+vim.keymap.set('n', '<A->>', '<C-w>>')
+vim.keymap.set('n', '<A-<>', '<C-w><')
+
 -- Remap to move lines in visual mode
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
 vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
@@ -72,7 +76,9 @@ vim.keymap.set('n', '<leader>/', require('telescope.builtin').current_buffer_fuz
 vim.keymap.set('n', '<leader>ss', require('telescope.builtin').spell_suggest, { desc = '[S]pell [S]uggess' })
 vim.keymap.set('n', '<leader>fb', '<Cmd>Telescope file_browser<CR>', { desc = '[F]ile [B]rowser' })
 vim.keymap.set('n', '<leader>mh', '<Cmd>Telescope noice<CR>', { desc = '[M]essage [H]istory' })
-vim.keymap.set('n', '<leader>gs', '<Cmd>Telescope git_status<CR>', { desc = '[G]it [S]tatus' })
+
+-- Neogit keymaps
+vim.keymap.set('n', '<leader>g', '<Cmd>Neogit<CR>', { desc = '[G]it' })
 
 -- Copilot keymaps
 vim.keymap.set("i", '<Tab>', function()

@@ -58,9 +58,9 @@ require('lazy').setup({
   { import = 'plugins' }
 }, {})
 
-require('neodev').setup()
 vim.cmd.colorscheme 'catppuccin'
 
+require('neodev').setup()
 require('settings.settings')
 require('settings.keymaps')
 require('settings.telescope')
