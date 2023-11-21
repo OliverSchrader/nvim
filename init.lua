@@ -20,8 +20,8 @@ vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
   'nvim-tree/nvim-web-devicons',
-  'tpope/vim-fugitive',
-  'tpope/vim-rhubarb',
+  -- 'tpope/vim-fugitive',
+  -- 'tpope/vim-rhubarb',
   'tpope/vim-sleuth',
   'RRethy/vim-illuminate',
   {
