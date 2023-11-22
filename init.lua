@@ -24,6 +24,7 @@ require('lazy').setup({
   -- 'tpope/vim-rhubarb',
   'tpope/vim-sleuth',
   'RRethy/vim-illuminate',
+  'mfussenegger/nvim-jdtls',
   {
     'folke/which-key.nvim',
     opts = {}
