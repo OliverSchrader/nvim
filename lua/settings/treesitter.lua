@@ -22,6 +22,9 @@ require('nvim-treesitter.configs').setup {
     enable = true,
     disable = { 'css', 'scss' },
   },
+  autotag = {
+    enable = true,
+  },
   incremental_selection = {
     enable = true,
     keymaps = {

@@ -19,48 +19,51 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
-  'nvim-tree/nvim-web-devicons',
-  -- 'tpope/vim-fugitive',
-  -- 'tpope/vim-rhubarb',
-  'tpope/vim-sleuth',
-  'RRethy/vim-illuminate',
-  'mfussenegger/nvim-jdtls',
-  {
-    'folke/which-key.nvim',
-    opts = {}
-  },
-  {
-    'numToStr/Comment.nvim',
-    opts = {}
-  },
-  {
-    'nvim-telescope/telescope.nvim',
-    branch = '0.1.x',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      'nvim-telescope/telescope-file-browser.nvim',
-      'nvim-telescope/telescope-ui-select.nvim',
-    }
-  },
-  {
-    'nvim-telescope/telescope-fzf-native.nvim',
-    build = 'make',
-    cond = function()
-      return vim.fn.executable 'make' == 1
-    end,
-  },
-  {
-    'nvim-treesitter/nvim-treesitter',
-    dependencies = {
-      'nvim-treesitter/nvim-treesitter-textobjects',
+    'nvim-tree/nvim-web-devicons',
+    'tpope/vim-sleuth',
+    'RRethy/vim-illuminate',
+    'mfussenegger/nvim-jdtls',
+    'windwp/nvim-ts-autotag',
+    {
+      'folke/which-key.nvim',
+      opts = {}
     },
-    build = ':TSUpdate',
+    {
+      'numToStr/Comment.nvim',
+      opts = {}
+    },
+    {
+      'nvim-telescope/telescope.nvim',
+      branch = '0.1.x',
+      dependencies = {
+        'nvim-lua/plenary.nvim',
+        'nvim-telescope/telescope-file-browser.nvim',
+        'nvim-telescope/telescope-ui-select.nvim',
+      }
+    },
+    {
+      'nvim-telescope/telescope-fzf-native.nvim',
+      build = 'make',
+      cond = function()
+        return vim.fn.executable 'make' == 1
+      end,
+    },
+    {
+      'nvim-treesitter/nvim-treesitter',
+      dependencies = {
+        'nvim-treesitter/nvim-treesitter-textobjects',
+      },
+      build = ':TSUpdate',
+    },
+    { import = 'plugins' }
   },
-  { import = 'plugins' }
-}, {})
+  {
+    ui = {
+      border = 'rounded'
+    },
+  })
 
-vim.cmd.colorscheme 'catppuccin'
-
+require('onedark').load()
 require('neodev').setup()
 require('settings.settings')
 require('settings.keymaps')

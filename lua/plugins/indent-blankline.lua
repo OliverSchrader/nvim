@@ -7,12 +7,12 @@ return {
     local hooks = require 'ibl.hooks'
 
     hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
-      vim.api.nvim_set_hl(0, 'Indent1', { fg = colors.pink })
-      vim.api.nvim_set_hl(0, 'Indent2', { fg = colors.maroon })
-      vim.api.nvim_set_hl(0, 'Indent3', { fg = colors.green })
-      vim.api.nvim_set_hl(0, 'Indent4', { fg = colors.yellow })
-      vim.api.nvim_set_hl(0, 'Indent5', { fg = colors.blue })
-      vim.api.nvim_set_hl(0, 'Indent6', { fg = colors.mauve })
+      vim.api.nvim_set_hl(0, 'Indent1', { fg = colors.blue })
+      vim.api.nvim_set_hl(0, 'Indent2', { fg = colors.purple })
+      vim.api.nvim_set_hl(0, 'Indent3', { fg = colors.yellow })
+      vim.api.nvim_set_hl(0, 'Indent4', { fg = colors.green })
+      vim.api.nvim_set_hl(0, 'Indent5', { fg = colors.cyan })
+      vim.api.nvim_set_hl(0, 'Indent6', { fg = colors.red })
     end)
 
     require('ibl').setup({
