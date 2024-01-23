@@ -5,5 +5,6 @@ return {
   blue = '#61afef',
   purple = '#c678dd',
   cyan = '#56b6c2',
+  orange = '#d19a66',
   white = '#abb2bf',
 }
