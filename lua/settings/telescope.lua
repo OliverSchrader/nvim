@@ -12,6 +12,7 @@ require('telescope').setup {
     path_display = {
       'tail',
     },
+    sorting_strategy = 'ascending',
   },
   pickers = {
     buffers = {
@@ -21,9 +22,6 @@ require('telescope').setup {
       ignore_current_buffer = true,
       sort_lastused = true,
       sort_mru = true,
-      layout_config = {
-        prompt_position = 'top',
-      },
       mappings = {
         n = {
           ['d'] = 'delete_buffer',
@@ -32,25 +30,20 @@ require('telescope').setup {
     },
     find_files = {
       hidden = true,
+      previewer = true,
       theme = 'dropdown',
-      previewer = false,
     },
     live_grep = {
-      sorting_strategy = 'ascending',
+      theme = 'dropdown',
+    },
+    current_buffer_fuzzy_find = {
+      theme = 'dropdown',
     },
     oldfiles = {
       hidden = true,
-      theme = 'dropdown',
-      previewer = false,
+      previewer = true,
       initial_mode = 'normal',
-    },
-    git_status = {
       theme = 'dropdown',
-      previewer = false,
-      initial_mode = 'normal',
-      layout_config = {
-        prompt_position = 'top',
-      },
     },
   },
   extensions = {

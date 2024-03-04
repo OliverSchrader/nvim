@@ -100,3 +100,9 @@ vim.keymap.set("i", '<S-Tab>', function()
 end, {
   silent = true,
 })
+
+vim.keymap.set("n", "<leader>n", function ()
+  require('global-note').toggle_note('project_local')
+end, {
+  desc = "Toggle global note",
+})

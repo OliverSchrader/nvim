@@ -12,7 +12,7 @@ return {
 				accept_line = false,
 				next = "<A-]>",
 				prev = "<A-[>",
-				dismiss = false,
+				dismiss = "<A-d>",
 			}
 		},
 	}
