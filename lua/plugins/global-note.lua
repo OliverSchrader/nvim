@@ -20,8 +20,18 @@ return {
 			additional_presets = {
 				project_local = {
 					command_name = "ProjectNote",
-
 					filename = function()
+						local function split (inputstr, sep)
+							if sep == nil then
+								sep = "%s"
+							end
+							local t={}
+							for str in string.gmatch(inputstr, "([^"..sep.."]+)") do
+								table.insert(t, str)
+							end
+							return t
+						end
+
 						local get_project_name = function()
 							local project_directory, err = vim.loop.cwd()
 							if project_directory == nil then
@@ -30,13 +40,17 @@ return {
 							end
 
 							local project_name = vim.fs.basename(project_directory)
+							local parent_dir = vim.fs.dirname(project_directory)
 							if project_name == nil then
 								vim.notify("Unable to get the project name",
 									vim.log.levels.WARN)
 								return nil
 							end
 
-							return project_name
+							local split_parent_dir = split(parent_dir, '/')
+							local test = split_parent_dir[#split_parent_dir]
+
+							return test .. " - " .. project_name
 						end
 
 						return get_project_name() .. ".md"

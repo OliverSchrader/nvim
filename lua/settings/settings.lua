@@ -40,8 +40,6 @@ vim.diagnostic.config {
   float = { border = 'rounded' },
 };
 
--- vim.o.fileformat = 'dos';
-
 vim.loader.enable();
 
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true });
@@ -50,5 +48,16 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     vim.highlight.on_yank()
   end,
   group = highlight_group,
+  pattern = '*',
+});
+
+vim.api.nvim_create_autocmd('BufWinEnter', {
+  callback = function()
+    local buffer = vim.api.nvim_get_current_buf()
+    if vim.bo[buffer].modifiable and vim.bo[buffer].fileformat == 'unix' then
+      vim.cmd('set ff=dos')
+      vim.cmd('update')
+    end
+  end,
   pattern = '*',
 });
