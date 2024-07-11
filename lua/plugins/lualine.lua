@@ -3,7 +3,7 @@ return {
   opts = {
     options = {
       icons_enabled = true,
-      theme = 'onedark',
+      theme = 'catppuccin',
       component_separators = { left = '', right = '' },
       section_separators = { left = '', right = '' },
       disabled_filetypes = { 'alpha' },
@@ -24,17 +24,34 @@ return {
           }
         },
       },
-      lualine_c = {},
+      lualine_c = {
+        {
+          'filetype',
+          icon_only = true,
+          icon = {
+            align = 'left',
+          }
+        },
+      },
       lualine_x = { 'diagnostics' },
       lualine_y = { 'diff' },
       lualine_z = { 'branch' }
     },
     inactive_sections = {
       lualine_a = { 'filename' },
-      lualine_b = {},
+      lualine_b = {
+        {
+          'filetype',
+          icon_only = true,
+          icon = {
+            align = 'left',
+          }
+        },
+
+      },
       lualine_c = {},
-      lualine_x = {},
-      lualine_y = {},
+      lualine_x = { 'diagnostics' },
+      lualine_y = { 'diff' },
       lualine_z = {}
     },
   },

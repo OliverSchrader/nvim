@@ -1,3 +1,5 @@
+local actions = require 'telescope.actions';
+
 require('telescope').setup {
   defaults = {
     layout_config = {
@@ -8,6 +10,9 @@ require('telescope').setup {
         ['<C-u>'] = false,
         ['<C-d>'] = false,
       },
+      n = {
+        ['<C-x>'] = actions.select_vertical,
+      }
     },
     path_display = {
       'tail',
@@ -32,12 +37,20 @@ require('telescope').setup {
       hidden = true,
       previewer = true,
       theme = 'dropdown',
+      file_ignore_patterns = {
+        'node_modules',
+        'keycloak'
+      }
     },
     live_grep = {
-      theme = 'dropdown',
+      -- theme = 'dropdown',
+      file_ignore_patterns = {
+        'node_modules',
+        'keycloak'
+      }
     },
     current_buffer_fuzzy_find = {
-      theme = 'dropdown',
+      -- theme = 'dropdown',
     },
     oldfiles = {
       hidden = true,
@@ -45,18 +58,19 @@ require('telescope').setup {
       initial_mode = 'normal',
       theme = 'dropdown',
     },
+    lsp_references = {
+      initial_mode = 'normal',
+      show_line = false,
+    }
   },
   extensions = {
     file_browser = {
       hidden = true,
-      theme = 'dropdown',
+      -- theme = 'dropdown',
       hijack_netrw = true,
       git_status = false,
       grouped = true,
       initial_mode = 'normal',
-      layout_config = {
-        prompt_position = 'top',
-      },
     },
     ["ui-select"] = {
       require("telescope.themes").get_dropdown {

@@ -4,7 +4,12 @@ return {
   opts = {
     lsp = {
       progress = {
-        enabled = false
+        enabled = false,
+      },
+      signature = {
+        auto_open = {
+          enabled = true,
+        }
       }
     },
     presets = {

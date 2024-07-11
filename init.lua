@@ -24,7 +24,6 @@ require('lazy').setup({
     'RRethy/vim-illuminate',
     'mfussenegger/nvim-jdtls',
     'windwp/nvim-ts-autotag',
-    'HiPhish/rainbow-delimiters.nvim',
     {
       'folke/which-key.nvim',
       opts = {}
@@ -64,7 +63,8 @@ require('lazy').setup({
     },
   })
 
-require('onedark').load()
+vim.cmd.colorscheme 'catppuccin'
+
 require('neodev').setup()
 require('settings.settings')
 require('settings.keymaps')
