@@ -18,7 +18,7 @@ vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
 vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
 
 -- Remap to format the file using lsp
-vim.keymap.set('n', '<A-F>', '<cmd>lua vim.lsp.buf.format()<CR>')
+vim.keymap.set('n', '<A-F>', '<cmd>lua require("conform").format()<CR>')
 
 -- Remap for current word search and replace
 vim.keymap.set(
