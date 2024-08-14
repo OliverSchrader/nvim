@@ -36,6 +36,8 @@ vim.opt.softtabstop = 2;
 vim.opt.shiftwidth = 2;
 vim.opt.fillchars = 'eob: ';
 
+vim.o.scrolloff = 10;
+
 vim.diagnostic.config {
   float = { border = 'rounded' },
 };

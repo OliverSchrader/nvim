@@ -90,6 +90,7 @@ vim.keymap.set('n', '<leader>/', require('telescope.builtin').current_buffer_fuz
 vim.keymap.set('n', '<leader>ss', require('telescope.builtin').spell_suggest, { desc = '[S]pell [S]uggess' })
 vim.keymap.set('n', '<leader>fb', '<Cmd>Telescope file_browser<CR>', { desc = '[F]ile [B]rowser' })
 vim.keymap.set('n', '<leader>mh', '<Cmd>Telescope noice<CR>', { desc = '[M]essage [H]istory' })
+vim.keymap.set('n', '<leader>u', '<Cmd>Telescope undo<CR>', { desc = '[U]ndo Tree' })
 
 vim.keymap.set('v', '<leader>fd', function()
 	local text = vim.getVisualSelection()

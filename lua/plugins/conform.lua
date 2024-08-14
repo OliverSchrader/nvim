@@ -7,6 +7,8 @@ return {
       javascriptreact = { 'prettier' },
       typescript = { 'prettier' },
       typescriptreact = { 'prettier' },
+      css = { 'prettier' },
+      scss = { 'prettier' },
     },
   },
 }

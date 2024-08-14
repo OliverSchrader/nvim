@@ -43,14 +43,10 @@ require('telescope').setup {
       }
     },
     live_grep = {
-      -- theme = 'dropdown',
       file_ignore_patterns = {
         'node_modules',
         'keycloak'
       }
-    },
-    current_buffer_fuzzy_find = {
-      -- theme = 'dropdown',
     },
     oldfiles = {
       hidden = true,
@@ -66,11 +62,18 @@ require('telescope').setup {
   extensions = {
     file_browser = {
       hidden = true,
-      -- theme = 'dropdown',
       hijack_netrw = true,
       git_status = false,
       grouped = true,
       initial_mode = 'normal',
+    },
+    undo = {
+      initial_mode = 'normal',
+      mappings = {
+        n = {
+          ['<cr>'] = require('telescope-undo.actions').restore,
+        }
+      }
     },
     ["ui-select"] = {
       require("telescope.themes").get_dropdown {
@@ -91,3 +94,4 @@ pcall(require('telescope').load_extension, 'fzf')
 pcall(require('telescope').load_extension, 'file_browser')
 pcall(require('telescope').load_extension, 'noice')
 pcall(require('telescope').load_extension, 'ui-select')
+pcall(require('telescope').load_extension, 'undo')
