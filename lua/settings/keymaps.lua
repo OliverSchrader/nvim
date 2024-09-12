@@ -100,27 +100,6 @@ end, { desc = '[F]ind in [D]irectory' })
 -- Neogit keymaps
 vim.keymap.set('n', '<leader>g', '<Cmd>Neogit<CR>', { desc = '[G]it' })
 
--- Copilot keymaps
-vim.keymap.set("i", '<Tab>', function()
-	if require("copilot.suggestion").is_visible() then
-		require("copilot.suggestion").accept()
-	else
-		vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, false, true), "n", false)
-	end
-end, {
-	silent = true,
-})
-
-vim.keymap.set("i", '<S-Tab>', function()
-	if require("copilot.suggestion").is_visible() then
-		require("copilot.suggestion").dismiss()
-	else
-		vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<S-Tab>", true, false, true), "n", false)
-	end
-end, {
-	silent = true,
-})
-
 -- Note keymaps
 vim.keymap.set("n", "<leader>n", function()
 	require('global-note').toggle_note('project_local')

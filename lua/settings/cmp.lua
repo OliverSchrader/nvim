@@ -12,7 +12,7 @@ cmp.setup {
   mapping = cmp.mapping.preset.insert {
     ['<A-j>'] = cmp.mapping.select_next_item(),
     ['<A-k>'] = cmp.mapping.select_prev_item(),
-    ['<CR>'] = cmp.mapping.confirm {
+    ['<Tab>'] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
     },
@@ -27,7 +27,7 @@ cmp.setup {
     }),
   },
   sources = {
-    { name = 'nvim_lsp' },
-    { name = 'luasnip' },
+    { name = 'nvim_lsp', priority = 30 },
+    { name = 'luasnip', priority = 10 },
   },
 }

@@ -9,6 +9,7 @@ require('telescope').setup {
       i = {
         ['<C-u>'] = false,
         ['<C-d>'] = false,
+        ['<C-x>'] = actions.select_vertical,
       },
       n = {
         ['<C-x>'] = actions.select_vertical,
@@ -36,7 +37,6 @@ require('telescope').setup {
     find_files = {
       hidden = true,
       previewer = true,
-      theme = 'dropdown',
       file_ignore_patterns = {
         'node_modules',
         'keycloak'
@@ -52,7 +52,6 @@ require('telescope').setup {
       hidden = true,
       previewer = true,
       initial_mode = 'normal',
-      theme = 'dropdown',
     },
     lsp_references = {
       initial_mode = 'normal',

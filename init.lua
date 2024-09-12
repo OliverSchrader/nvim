@@ -24,6 +24,7 @@ require('lazy').setup({
     'RRethy/vim-illuminate',
     'mfussenegger/nvim-jdtls',
     'windwp/nvim-ts-autotag',
+    'HiPhish/rainbow-delimiters.nvim',
     {
       'folke/which-key.nvim',
       opts = {}

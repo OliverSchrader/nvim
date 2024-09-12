@@ -22,7 +22,7 @@ vim.o.updatetime = 250;
 vim.o.timeout = true;
 vim.o.timeoutlen = 300;
 
-vim.o.completeopt = 'menuone,noselect,preview,noinsert';
+vim.o.completeopt = 'menuone,preview,noinsert';
 
 vim.o.shell='cmd.exe';
 
@@ -37,6 +37,8 @@ vim.opt.shiftwidth = 2;
 vim.opt.fillchars = 'eob: ';
 
 vim.o.scrolloff = 10;
+
+vim.o.splitright = true;
 
 vim.diagnostic.config {
   float = { border = 'rounded' },
@@ -63,3 +65,9 @@ vim.api.nvim_create_autocmd('BufWinEnter', {
   end,
   pattern = '*',
 });
+
+-- Open help in vertical split
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "help", "man" },
+    command = "wincmd L",
+})
