@@ -17,7 +17,7 @@ return {
           blend = 0,
           border = 'rounded',
         },
-      }
+      },
     },
     'folke/neodev.nvim',
   },

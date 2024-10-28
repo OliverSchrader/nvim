@@ -19,62 +19,62 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
-    'nvim-tree/nvim-web-devicons',
-    'tpope/vim-sleuth',
-    'RRethy/vim-illuminate',
-    'mfussenegger/nvim-jdtls',
-    'windwp/nvim-ts-autotag',
-    'HiPhish/rainbow-delimiters.nvim',
-    {
-      'folke/which-key.nvim',
-      opts = {}
-    },
-    {
-      'numToStr/Comment.nvim',
-      opts = {}
-    },
-    {
-      'nvim-telescope/telescope.nvim',
-      branch = '0.1.x',
-      dependencies = {
-        'nvim-lua/plenary.nvim',
-        'nvim-telescope/telescope-file-browser.nvim',
-        'nvim-telescope/telescope-ui-select.nvim',
-        'debugloop/telescope-undo.nvim',
-      }
-    },
-    {
-      'nvim-telescope/telescope-fzf-native.nvim',
-      build = 'make',
-      cond = function()
-        return vim.fn.executable 'make' == 1
-      end,
-    },
-    {
-      'nvim-treesitter/nvim-treesitter',
-      dependencies = {
-        'nvim-treesitter/nvim-treesitter-textobjects',
-      },
-      build = ':TSUpdate',
-    },
-    { import = 'plugins' }
+  'nvim-tree/nvim-web-devicons',
+  'tpope/vim-sleuth',
+  'RRethy/vim-illuminate',
+  'mfussenegger/nvim-jdtls',
+  'windwp/nvim-ts-autotag',
+  {
+    'folke/which-key.nvim',
+    opts = {},
   },
   {
-    ui = {
-      border = 'rounded'
+    'numToStr/Comment.nvim',
+    opts = {},
+  },
+  {
+    'nvim-telescope/telescope.nvim',
+    branch = '0.1.x',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope-file-browser.nvim',
+      'nvim-telescope/telescope-ui-select.nvim',
+      'debugloop/telescope-undo.nvim',
     },
-  })
+  },
+  {
+    'nvim-telescope/telescope-fzf-native.nvim',
+    build = 'make',
+    cond = function()
+      return vim.fn.executable 'make' == 1
+    end,
+  },
+  {
+    'nvim-treesitter/nvim-treesitter',
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter-textobjects',
+    },
+    build = ':TSUpdate',
+  },
+  { import = 'plugins' },
+}, {
+  ui = {
+    border = 'rounded',
+  },
+})
+
+require('neodev').setup()
+
+require 'settings.settings'
+require 'settings.keymaps'
+require 'settings.telescope'
+require 'settings.treesitter'
+require 'settings.lsp'
+require 'settings.cmp'
 
 vim.cmd.colorscheme 'catppuccin'
 
-require('neodev').setup()
-require('settings.settings')
-require('settings.keymaps')
-require('settings.telescope')
-require('settings.treesitter')
-require('settings.lsp')
-require('settings.cmp')
-require('settings.highlights')
+require 'settings.themes.catppuccin.highlights'
 
 -- :h modeline
 -- vim: ts=2 sts=2 sw=2 et

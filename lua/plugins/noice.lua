@@ -9,8 +9,8 @@ return {
       signature = {
         auto_open = {
           enabled = true,
-        }
-      }
+        },
+      },
     },
     presets = {
       lsp_doc_border = true,
@@ -43,7 +43,7 @@ return {
         win_options = {
           winhighlight = { Normal = 'Normal', FloatBorder = 'TelescopeResultsBorder' },
         },
-      }
+      },
     },
     routes = {
       {
@@ -58,19 +58,19 @@ return {
         view = 'notify',
         filter = { event = 'msg_showmode' },
       },
-    }
+    },
   },
   dependencies = {
     'MunifTanjim/nui.nvim',
     {
       'rcarriga/nvim-notify',
       config = function()
-        require('notify').setup({
+        require('notify').setup {
           background_colour = '#000000',
           fps = 60,
           stages = 'fade_in_slide_out',
-        })
-      end
-    }
-  }
+        }
+      end,
+    },
+  },
 }

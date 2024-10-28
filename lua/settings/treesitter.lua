@@ -17,7 +17,10 @@ require('nvim-treesitter.configs').setup {
     'vim',
   },
   auto_install = true,
-  highlight = { enable = true },
+  highlight = {
+    enable = true,
+    disable = { 'sql' },
+  },
   indent = {
     enable = true,
     disable = { 'css', 'scss' },

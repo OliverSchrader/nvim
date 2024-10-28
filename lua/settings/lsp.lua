@@ -75,8 +75,8 @@ mason_lspconfig.setup_handlers {
   end,
 }
 
-require('lspconfig').typos_lsp.setup({
+require('lspconfig').typos_lsp.setup {
   init_options = {
     diagnosticSeverity = 'Hint',
   },
-})
+}

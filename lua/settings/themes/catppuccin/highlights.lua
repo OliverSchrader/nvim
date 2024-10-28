@@ -1,4 +1,17 @@
-local colors = require('settings.colors')
+local colors = require('catppuccin.palettes').get_palette 'frappe'
+
+-- Borders
+vim.api.nvim_set_hl(0, 'Float', { fg = colors.mauve })
+vim.api.nvim_set_hl(0, 'FloatBorder', { link = 'Float' })
+
+-- Telescope
+vim.api.nvim_set_hl(0, 'TelescopeTitle', { fg = colors.blue })
+
+-- Noice
+vim.api.nvim_set_hl(0, 'NoiceCmdlinePopupBorder', { link = 'Float' })
+vim.api.nvim_set_hl(0, 'NoiceCmdlinePopupTitle', { link = 'TelescopeTitle' })
+vim.api.nvim_set_hl(0, 'NoiceCmdlineIcon', { link = 'TelescopeTitle' })
+
 -- Lualine
 vim.api.nvim_set_hl(0, 'lualine_a_normal', { fg = colors.mauve })
 vim.api.nvim_set_hl(0, 'lualine_a_insert', { fg = colors.blue })
@@ -23,3 +36,10 @@ vim.api.nvim_set_hl(0, 'NeogitDiffContext', { bg = 'none' })
 vim.api.nvim_set_hl(0, 'NeogitHunkHeader', { fg = colors.mauve })
 vim.api.nvim_set_hl(0, 'NeogitHunkHeaderHighlight', { fg = colors.mauve })
 vim.api.nvim_set_hl(0, 'NeogitCursorLine', { bg = 'none' })
+
+-- Illuminate
+vim.api.nvim_set_hl(0, 'IlluminatedWordText', { underline = true, bg = 'none' })
+vim.api.nvim_set_hl(0, 'IlluminatedWordRead', { underline = true, bg = 'none' })
+vim.api.nvim_set_hl(0, 'IlluminatedWordWrite', { underline = true, bg = 'none' })
+vim.api.nvim_set_hl(0, 'illuminatedWord', { underline = true, bg = 'none' })
+vim.api.nvim_set_hl(0, 'illuminatedCurWord', { underline = true, bg = 'none' })

@@ -6,8 +6,14 @@ vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = tr
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- Remap for switching between vertically split windows
-vim.keymap.set('n', '<A-h>', '<C-w>h')
-vim.keymap.set('n', '<A-l>', '<C-w>l')
+vim.keymap.set('n', '<A-h>', '<C-w>h', { desc = 'Go to left window' })
+vim.keymap.set('n', '<A-l>', '<C-w>l', { desc = 'Go to right window' })
+
+-- Remap to split a window vertically
+vim.keymap.set('n', '<A-v>', '<C-w>v', { desc = 'Split window vertically' })
+
+-- Remap to close a window
+vim.keymap.set('n', '<A-q>', '<C-w>q', { desc = 'Close window' })
 
 -- Remap for increasing/descreasing window width
 vim.keymap.set('n', '<A->>', '<C-w>>')
@@ -21,12 +27,7 @@ vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
 vim.keymap.set('n', '<A-F>', '<cmd>lua require("conform").format()<CR>')
 
 -- Remap for current word search and replace
-vim.keymap.set(
-	'n',
-	'<leader>sr',
-	[[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
-	{ desc = 'Buffer [S]earch and [R]eplace' }
-)
+vim.keymap.set('n', '<leader>sr', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = 'Buffer [S]earch and [R]eplace' })
 
 -- Remap to delete highlighted text into the void register and then paste
 vim.keymap.set('x', '<leader>p', [["_dP]])
@@ -59,8 +60,11 @@ vim.keymap.set('v', '<Down>', '<Nop>')
 vim.keymap.set('v', '<Left>', '<Nop>')
 vim.keymap.set('v', '<Right>', '<Nop>')
 
--- Remap to leave insert mode in terminal
-vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
+-- Remap to exit insert mode
+vim.keymap.set('i', 'jj', '<Esc>')
+
+-- Remap to exit insert mode in terminal
+vim.keymap.set('t', 'jj', '<C-\\><C-n>')
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
@@ -68,16 +72,16 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 
 -- Telescope keymaps
 function vim.getVisualSelection()
-	vim.cmd('noau normal! "vy"')
-	local text = vim.fn.getreg('v')
-	vim.fn.setreg('v', {})
+  vim.cmd 'noau normal! "vy"'
+  local text = vim.fn.getreg 'v'
+  vim.fn.setreg('v', {})
 
-	text = string.gsub(text, "\n", "")
-	if #text > 0 then
-		return text
-	else
-		return ''
-	end
+  text = string.gsub(text, '\n', '')
+  if #text > 0 then
+    return text
+  else
+    return ''
+  end
 end
 
 vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
@@ -93,16 +97,16 @@ vim.keymap.set('n', '<leader>mh', '<Cmd>Telescope noice<CR>', { desc = '[M]essag
 vim.keymap.set('n', '<leader>u', '<Cmd>Telescope undo<CR>', { desc = '[U]ndo Tree' })
 
 vim.keymap.set('v', '<leader>fd', function()
-	local text = vim.getVisualSelection()
-	require('telescope.builtin').live_grep({ default_text = text })
+  local text = vim.getVisualSelection()
+  require('telescope.builtin').live_grep { default_text = text }
 end, { desc = '[F]ind in [D]irectory' })
 
 -- Neogit keymaps
 vim.keymap.set('n', '<leader>g', '<Cmd>Neogit<CR>', { desc = '[G]it' })
 
 -- Note keymaps
-vim.keymap.set("n", "<leader>n", function()
-	require('global-note').toggle_note('project_local')
+vim.keymap.set('n', '<leader>n', function()
+  require('global-note').toggle_note 'project_local'
 end, {
-	desc = "Toggle global note",
+  desc = 'Toggle global note',
 })
