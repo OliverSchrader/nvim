@@ -80,3 +80,11 @@ vim.api.nvim_create_autocmd('BufWritePre', {
     require('conform').format { bufnr = args.buf }
   end,
 })
+
+-- Custom LazyGit terminal
+local Terminal = require('toggleterm.terminal').Terminal
+local lazygit = Terminal:new { cmd = 'lazygit', hidden = true }
+
+function _ToggleLazyGit()
+  lazygit:toggle()
+end

@@ -99,7 +99,10 @@ vim.keymap.set('v', '<leader>fd', function()
 end, { desc = '[F]ind in [D]irectory' })
 
 -- Neogit keymaps
-vim.keymap.set('n', '<leader>g', '<Cmd>Neogit<CR>', { desc = '[G]it' })
+-- vim.keymap.set('n', '<leader>g', '<Cmd>Neogit<CR>', { desc = '[G]it' })
+
+-- LazyGit
+vim.api.nvim_set_keymap('n', '<leader>g', '<cmd>lua _ToggleLazyGit()<CR>', { noremap = true, silent = true })
 
 -- Note keymaps
 vim.keymap.set('n', '<leader>n', function()
