@@ -19,12 +19,13 @@ return {
       style = 'minimal',
       relative = 'cursor',
       row = 0,
-      col = 1
+      col = 1,
     },
     on_attach = function(bufnr)
       vim.keymap.set('n', '<leader>gk', require('gitsigns').prev_hunk, { buffer = bufnr, desc = 'Go to Previous Hunk' })
       vim.keymap.set('n', '<leader>gj', require('gitsigns').next_hunk, { buffer = bufnr, desc = 'Go to Next Hunk' })
       vim.keymap.set('n', '<leader>gp', require('gitsigns').preview_hunk, { buffer = bufnr, desc = 'Preview Hunk' })
+      vim.keymap.set('n', '<leader>rh', require('gitsigns').reset_hunk, { buffer = bufnr, desc = 'Reset Hunk' })
     end,
   },
 }

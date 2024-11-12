@@ -48,7 +48,7 @@ local servers = {
   jsonls = {},
   prismals = {},
   tailwindcss = {},
-  tsserver = {},
+  ts_ls = {},
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },

@@ -1,7 +1,7 @@
-vim.wo.number = true
-vim.wo.relativenumber = true
+vim.o.number = true
+vim.o.relativenumber = true
 
-vim.wo.signcolumn = 'yes'
+vim.o.signcolumn = 'yes'
 
 vim.o.hlsearch = false
 
@@ -31,9 +31,9 @@ vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.o.foldlevel = 99
 vim.o.foldcolumn = '0'
 
-vim.opt.tabstop = 2
-vim.opt.softtabstop = 2
-vim.opt.shiftwidth = 2
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
 vim.opt.fillchars = 'eob: '
 
 vim.o.scrolloff = 10
@@ -55,6 +55,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
 })
 
+-- Dealing with line endings on windows
 vim.api.nvim_create_autocmd('BufWinEnter', {
   callback = function()
     local buffer = vim.api.nvim_get_current_buf()

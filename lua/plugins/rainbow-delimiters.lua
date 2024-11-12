@@ -3,8 +3,10 @@ return {
   config = function()
     require('rainbow-delimiters.setup').setup {
       query = {
-        javascript = 'rainbow-delimiters',
-        typescript = 'rainbow-delimiters',
+        -- Doesn't seem to work :( Try again in future release
+        -- javascript = 'rainbow-parens',
+        -- tsx = 'rainbow-parens',
+        -- typescript = 'rainbow-parens',
       },
       blacklist = { 'html' },
     }

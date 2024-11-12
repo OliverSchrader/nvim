@@ -63,9 +63,6 @@ vim.keymap.set('v', '<Right>', '<Nop>')
 -- Remap to exit insert mode
 vim.keymap.set('i', 'jj', '<Esc>')
 
--- Remap to exit insert mode in terminal
-vim.keymap.set('t', 'jj', '<C-\\><C-n>')
-
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
