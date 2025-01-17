@@ -1,18 +1,17 @@
 return {
   'akinsho/toggleterm.nvim',
-  version = "*",
+  version = '*',
   opts = {
     open_mapping = [[<A-/>]],
     direction = 'float',
     float_opts = {
       border = 'curved',
-      width = 160,
     },
     highlights = {
       FloatBorder = {
-        link = 'TelescopeResultsBorder'
+        link = 'TelescopeResultsBorder',
       },
     },
     shell = 'bash.exe',
-  }
+  },
 }

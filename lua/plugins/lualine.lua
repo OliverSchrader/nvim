@@ -19,9 +19,9 @@ return {
           symbols = {
             modified = '',
             readonly = '',
-            unnamed = '[No Name]',
-            newfile = '[New]',
-          }
+            unnamed = 'No Name',
+            newfile = 'New',
+          },
         },
       },
       lualine_c = {
@@ -30,12 +30,12 @@ return {
           icon_only = true,
           icon = {
             align = 'left',
-          }
+          },
         },
       },
       lualine_x = { 'diagnostics' },
       lualine_y = { 'diff' },
-      lualine_z = { 'branch' }
+      lualine_z = { 'branch' },
     },
     inactive_sections = {
       lualine_a = { 'filename' },
@@ -45,14 +45,13 @@ return {
           icon_only = true,
           icon = {
             align = 'left',
-          }
+          },
         },
-
       },
       lualine_c = {},
       lualine_x = { 'diagnostics' },
       lualine_y = { 'diff' },
-      lualine_z = {}
+      lualine_z = {},
     },
   },
 }

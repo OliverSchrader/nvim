@@ -1,4 +1,4 @@
-local actions = require 'telescope.actions';
+local actions = require 'telescope.actions'
 
 require('telescope').setup {
   defaults = {
@@ -13,7 +13,7 @@ require('telescope').setup {
       },
       n = {
         ['<C-x>'] = actions.select_vertical,
-      }
+      },
     },
     path_display = {
       'tail',
@@ -39,14 +39,16 @@ require('telescope').setup {
       previewer = true,
       file_ignore_patterns = {
         'node_modules',
-        'keycloak'
-      }
+        'keycloak',
+      },
     },
     live_grep = {
       file_ignore_patterns = {
         'node_modules',
-        'keycloak'
-      }
+        'keycloak',
+        'yarn.lock',
+        'package.lock',
+      },
     },
     oldfiles = {
       hidden = true,
@@ -56,7 +58,11 @@ require('telescope').setup {
     lsp_references = {
       initial_mode = 'normal',
       show_line = false,
-    }
+    },
+    diagnostics = {
+      initial_mode = 'normal',
+      hide_filename = true,
+    },
   },
   extensions = {
     file_browser = {
@@ -71,11 +77,11 @@ require('telescope').setup {
       mappings = {
         n = {
           ['<cr>'] = require('telescope-undo.actions').restore,
-        }
-      }
+        },
+      },
     },
-    ["ui-select"] = {
-      require("telescope.themes").get_dropdown {
+    ['ui-select'] = {
+      require('telescope.themes').get_dropdown {
         initial_mode = 'normal',
         sorting_strategy = 'ascending',
         layout_strategy = 'center',

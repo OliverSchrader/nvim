@@ -40,6 +40,8 @@ vim.o.scrolloff = 10
 
 vim.o.splitright = true
 
+vim.opt.showtabline = 1
+
 vim.diagnostic.config {
   float = { border = 'rounded' },
 }
@@ -74,17 +76,43 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 -- Format on save using Conform
-vim.api.nvim_create_autocmd('BufWritePre', {
-  pattern = '*',
-  callback = function(args)
-    require('conform').format { bufnr = args.buf }
-  end,
-})
+-- vim.api.nvim_create_autocmd('BufWritePre', {
+--   pattern = '*',
+--   callback = function(args)
+--     require('conform').format { bufnr = args.buf }
+--   end,
+-- })
 
 -- Custom LazyGit terminal
 local Terminal = require('toggleterm.terminal').Terminal
-local lazygit = Terminal:new { cmd = 'lazygit', hidden = true }
+local lazygit = Terminal:new {
+  cmd = 'lazygit',
+  hidden = true,
+}
 
 function _ToggleLazyGit()
   lazygit:toggle()
+end
+
+-- Custom tab names
+vim.o.tabline = '%!v:lua.TabLine()'
+
+function _G.TabLine()
+  local tab_pages = ''
+  local padding = '   '
+  for i = 1, vim.fn.tabpagenr '$' do
+    -- Get the list of buffers for the current tab
+    local buf_list = vim.fn.tabpagebuflist(i)
+    -- Get the first buffer in the list (the one that's active in this tab)
+    local buf_name = vim.fn.bufname(buf_list[1])
+    local file_name = vim.fn.fnamemodify(buf_name, ':t') -- Only display the file name (without path)
+
+    -- If the tab is the current tab, highlight it differently
+    if i == vim.fn.tabpagenr() then
+      tab_pages = tab_pages .. '%#TabLineSel#' .. file_name .. padding
+    else
+      tab_pages = tab_pages .. '%#TabLine#' .. file_name .. padding
+    end
+  end
+  return tab_pages
 end

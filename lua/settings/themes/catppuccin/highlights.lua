@@ -52,3 +52,7 @@ vim.api.nvim_set_hl(0, 'IlluminatedWordRead', { underline = true, bg = 'none' })
 vim.api.nvim_set_hl(0, 'IlluminatedWordWrite', { underline = true, bg = 'none' })
 vim.api.nvim_set_hl(0, 'illuminatedWord', { underline = true, bg = 'none' })
 vim.api.nvim_set_hl(0, 'illuminatedCurWord', { underline = true, bg = 'none' })
+
+-- Tabs
+vim.api.nvim_set_hl(0, 'TabLine', { bg = 'none' })
+vim.api.nvim_set_hl(0, 'TabLineSel', { bg = 'none', fg = colors.mauve })

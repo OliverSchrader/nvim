@@ -6,12 +6,16 @@ return {
   },
   opts = {
     disable_hint = true,
-    kind = 'replace',
+    disable_context_highlighting = true,
+    disable_signs = true,
+    kind = 'tab',
+    remember_settings = false,
+    use_per_project_settings = false,
     fetch_after_checkout = true,
     process_spinner = false,
-    auto_show_console = false,
     commit_editor = {
-      kind = 'vsplit',
+      kind = 'tab',
+      show_staged_diff = false,
     },
     sections = {
       recent = {
