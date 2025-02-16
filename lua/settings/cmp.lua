@@ -12,7 +12,7 @@ cmp.setup {
   mapping = cmp.mapping.preset.insert {
     ['<A-j>'] = cmp.mapping.select_next_item(),
     ['<A-k>'] = cmp.mapping.select_prev_item(),
-    ['<Tab>'] = cmp.mapping.confirm {
+    ['<TAB>'] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
     },

@@ -9,10 +9,12 @@ require('telescope').setup {
       i = {
         ['<C-u>'] = false,
         ['<C-d>'] = false,
-        ['<C-x>'] = actions.select_vertical,
+        ['<C-l>'] = actions.select_vertical,
+        ['<C-k>'] = actions.select_horizontal,
       },
       n = {
-        ['<C-x>'] = actions.select_vertical,
+        ['<C-l>'] = actions.select_vertical,
+        ['<C-k>'] = actions.select_horizontal,
       },
     },
     path_display = {
@@ -23,8 +25,8 @@ require('telescope').setup {
   pickers = {
     buffers = {
       initial_mode = 'normal',
-      theme = 'dropdown',
-      previewer = false,
+      -- theme = 'dropdown',
+      previewer = true,
       ignore_current_buffer = true,
       sort_lastused = true,
       sort_mru = true,

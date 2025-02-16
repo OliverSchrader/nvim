@@ -34,13 +34,17 @@ vim.o.foldcolumn = '0'
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
-vim.opt.fillchars = 'eob: '
+
+vim.opt.fillchars = {
+  eob = ' ',
+}
 
 vim.o.scrolloff = 10
 
 vim.o.splitright = true
 
 vim.opt.showtabline = 1
+vim.opt.laststatus = 3
 
 vim.diagnostic.config {
   float = { border = 'rounded' },
@@ -94,6 +98,25 @@ function _ToggleLazyGit()
   lazygit:toggle()
 end
 
+-- Refresh buffers after exiting LazyGit
+vim.api.nvim_create_autocmd({ 'TermClose' }, {
+  pattern = '*lazygit*',
+  callback = function(args)
+    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+      if vim.api.nvim_buf_is_loaded(buf) and vim.fn.getbufvar(buf, '&filetype') ~= '' then
+        local file = vim.fn.expand('#' .. buf .. ':p')
+        local modified = vim.fn.getfsize(file) ~= vim.fn.getfsize(vim.fn.expand '<afile>')
+
+        if modified then
+          vim.cmd.buffer(buf)
+          vim.cmd.edit()
+          require('gitsigns').refresh()
+        end
+      end
+    end
+  end,
+})
+
 -- Custom tab names
 vim.o.tabline = '%!v:lua.TabLine()'
 
@@ -101,13 +124,10 @@ function _G.TabLine()
   local tab_pages = ''
   local padding = '   '
   for i = 1, vim.fn.tabpagenr '$' do
-    -- Get the list of buffers for the current tab
     local buf_list = vim.fn.tabpagebuflist(i)
-    -- Get the first buffer in the list (the one that's active in this tab)
     local buf_name = vim.fn.bufname(buf_list[1])
-    local file_name = vim.fn.fnamemodify(buf_name, ':t') -- Only display the file name (without path)
+    local file_name = vim.fn.fnamemodify(buf_name, ':t')
 
-    -- If the tab is the current tab, highlight it differently
     if i == vim.fn.tabpagenr() then
       tab_pages = tab_pages .. '%#TabLineSel#' .. file_name .. padding
     else
