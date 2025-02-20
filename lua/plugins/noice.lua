@@ -41,7 +41,7 @@ return {
           padding = { 0, 1 },
         },
         win_options = {
-          winhighlight = { Normal = 'Normal', FloatBorder = 'TelescopeResultsBorder' },
+          winhighlight = { Normal = 'Normal', FloatBorder = 'FloatBorder' },
         },
       },
     },

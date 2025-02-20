@@ -19,11 +19,11 @@ cmp.setup {
   },
   window = {
     completion = cmp.config.window.bordered({
-      winhighlight = 'Normal:Normal,FloatBorder:TelescopeResultsBorder,CursorLine:Visual,Search:None',
+      winhighlight = 'Normal:Normal,FloatBorder:Float,CursorLine:Visual,Search:None',
       scrollbar = false,
     }),
     documentation = cmp.config.window.bordered({
-      winhighlight = 'Normal:Normal,FloatBorder:TelescopeResultsBorder,CursorLine:Visual,Search:None',
+      winhighlight = 'Normal:Normal,FloatBorder:Float,CursorLine:Visual,Search:None',
     }),
   },
   sources = {
