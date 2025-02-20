@@ -72,7 +72,7 @@ require('telescope').setup {
       hijack_netrw = true,
       git_status = false,
       grouped = true,
-      initial_mode = 'normal',
+      initial_mode = 'insert',
     },
     undo = {
       initial_mode = 'normal',

@@ -93,16 +93,12 @@ vim.keymap.set('n', '<leader>mh', '<Cmd>Telescope noice<CR>', { desc = '[M]essag
 vim.keymap.set('n', '<leader>u', '<Cmd>Telescope undo<CR>', { desc = '[U]ndo Tree' })
 vim.keymap.set('n', '<leader>ft', '<Cmd>TodoTelescope<CR>', { desc = '[F]ind [T]o dos' })
 
--- vim.keymap.set('n', '<leader>fb', '<Cmd>Telescope file_browser<CR>', { desc = '[F]ile [B]rowser' })
-vim.keymap.set('n', '<leader>fb', '<Cmd>NvimTreeToggle<CR>', { desc = '[F]ile [B]rowser' })
+vim.keymap.set('n', '<leader>fb', '<Cmd>Telescope file_browser<CR>', { desc = '[F]ile [B]rowser' })
 
 vim.keymap.set('v', '<leader>fd', function()
   local text = vim.getVisualSelection()
   require('telescope.builtin').live_grep { default_text = text }
 end, { desc = '[F]ind in [D]irectory' })
-
--- Neogit keymaps
--- vim.keymap.set('n', '<leader>g', '<Cmd>Neogit<CR>', { desc = '[G]it' })
 
 -- LazyGit
 vim.api.nvim_set_keymap('n', '<leader>g', '<cmd>lua _ToggleLazyGit()<CR>', { noremap = true, silent = true })

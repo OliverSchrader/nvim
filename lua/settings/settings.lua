@@ -31,9 +31,9 @@ vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.o.foldlevel = 99
 vim.o.foldcolumn = '0'
 
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
-vim.opt.shiftwidth = 4
+-- vim.opt.tabstop = 4
+-- vim.opt.softtabstop = 4
+-- vim.opt.shiftwidth = 4
 
 vim.opt.fillchars = {
   eob = ' ',
@@ -101,7 +101,7 @@ end
 -- Refresh buffers after exiting LazyGit
 vim.api.nvim_create_autocmd({ 'TermClose' }, {
   pattern = '*lazygit*',
-  callback = function(args)
+  callback = function()
     for _, buf in ipairs(vim.api.nvim_list_bufs()) do
       if vim.api.nvim_buf_is_loaded(buf) and vim.fn.getbufvar(buf, '&filetype') ~= '' then
         local file = vim.fn.expand('#' .. buf .. ':p')
