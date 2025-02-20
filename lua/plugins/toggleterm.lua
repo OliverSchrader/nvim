@@ -9,7 +9,7 @@ return {
     },
     highlights = {
       FloatBorder = {
-        link = 'TelescopeResultsBorder',
+        link = 'Float',
       },
     },
     shell = 'bash.exe',

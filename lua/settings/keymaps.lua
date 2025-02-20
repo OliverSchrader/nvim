@@ -5,9 +5,9 @@ vim.keymap.set('n', 'ZZ', '<Nop>')
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
--- Remap for switching between vertically split windows
-vim.keymap.set('n', '<A-h>', '<C-w>h', { desc = 'Go to left window' })
-vim.keymap.set('n', '<A-l>', '<C-w>l', { desc = 'Go to right window' })
+-- Remap for switching between splits
+vim.keymap.set('n', '<A-h>', '<C-w>W', { desc = 'Switch Windows' })
+vim.keymap.set('n', '<A-l>', '<C-w>w', { desc = 'Switch Windows' })
 
 -- Remap to split a window vertically
 vim.keymap.set('n', '<A-v>', '<C-w>v', { desc = 'Split window vertically' })
@@ -64,41 +64,7 @@ vim.keymap.set('v', '<Right>', '<Nop>')
 vim.keymap.set('i', 'jj', '<Esc>')
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
-vim.keymap.set('n', '<leader>q', require('telescope.builtin').diagnostics, { desc = 'Open diagnostics list' })
-
--- Telescope keymaps
-function vim.getVisualSelection()
-  vim.cmd 'noau normal! "vy"'
-  local text = vim.fn.getreg 'v'
-  vim.fn.setreg('v', {})
-
-  text = string.gsub(text, '\n', '')
-  if #text > 0 then
-    return text
-  else
-    return ''
-  end
-end
-
-vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
-vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, { desc = '[F]ind [F]iles' })
-vim.keymap.set('n', '<leader>fo', require('telescope.builtin').oldfiles, { desc = '[F]ind [O]ld files' })
-vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags, { desc = '[F]ind [H]elp' })
-vim.keymap.set('n', '<leader>fd', require('telescope.builtin').live_grep, { desc = '[F]ind in [D]irectory' })
-vim.keymap.set('n', '<leader>fw', require('telescope.builtin').grep_string, { desc = '[F]ind [W]ord' })
-vim.keymap.set('n', '<leader>/', require('telescope.builtin').current_buffer_fuzzy_find, { desc = 'Find in buffer' })
-vim.keymap.set('n', '<leader>ss', require('telescope.builtin').spell_suggest, { desc = '[S]pell [S]uggess' })
-vim.keymap.set('n', '<leader>mh', '<Cmd>Telescope noice<CR>', { desc = '[M]essage [H]istory' })
-vim.keymap.set('n', '<leader>u', '<Cmd>Telescope undo<CR>', { desc = '[U]ndo Tree' })
-vim.keymap.set('n', '<leader>ft', '<Cmd>TodoTelescope<CR>', { desc = '[F]ind [T]o dos' })
-
-vim.keymap.set('n', '<leader>fb', '<Cmd>Telescope file_browser<CR>', { desc = '[F]ile [B]rowser' })
-
-vim.keymap.set('v', '<leader>fd', function()
-  local text = vim.getVisualSelection()
-  require('telescope.builtin').live_grep { default_text = text }
-end, { desc = '[F]ind in [D]irectory' })
+vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 
 -- LazyGit
 vim.api.nvim_set_keymap('n', '<leader>g', '<cmd>lua _ToggleLazyGit()<CR>', { noremap = true, silent = true })

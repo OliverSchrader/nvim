@@ -31,9 +31,9 @@ vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.o.foldlevel = 99
 vim.o.foldcolumn = '0'
 
--- vim.opt.tabstop = 4
--- vim.opt.softtabstop = 4
--- vim.opt.shiftwidth = 4
+vim.opt.tabstop = 2
+vim.opt.softtabstop = 2
+vim.opt.shiftwidth = 2
 
 vim.opt.fillchars = {
   eob = ' ',
@@ -110,7 +110,7 @@ vim.api.nvim_create_autocmd({ 'TermClose' }, {
         if modified then
           vim.cmd.buffer(buf)
           vim.cmd.edit()
-          require('gitsigns').refresh()
+          -- require('gitsigns').refresh()
         end
       end
     end

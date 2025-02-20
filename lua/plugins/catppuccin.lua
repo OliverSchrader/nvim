@@ -11,19 +11,11 @@ return {
     show_end_of_buffer = false,
     no_italic = true,
     integrations = {
-      alpha = true,
       mason = true,
-      mini = {
-        enabled = false,
-      },
-      neogit = true,
       noice = true,
       notifier = true,
       notify = true,
       treesitter = true,
-      telescope = {
-        enabled = true,
-      },
       illuminate = {
         enabled = true,
         lsp = false,

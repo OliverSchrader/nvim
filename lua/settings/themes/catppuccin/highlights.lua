@@ -6,16 +6,18 @@ vim.api.nvim_set_hl(0, 'FloatBorder', { link = 'Float' })
 vim.api.nvim_set_hl(0, 'WinSeparator', { link = 'Float' })
 vim.api.nvim_set_hl(0, 'NeogitWinSeparator', { link = 'Float' })
 
--- Telescope
-vim.api.nvim_set_hl(0, 'TelescopeTitle', { fg = colors.blue })
+-- Snacks
+vim.api.nvim_set_hl(0, 'SnacksPickerTitle', { fg = colors.blue })
+vim.api.nvim_set_hl(0, 'SnacksPickerTotals', { fg = colors.blue })
+vim.api.nvim_set_hl(0, 'SnacksIndentScope', { fg = colors.mauve })
 
 -- LSP
 vim.api.nvim_set_hl(0, 'LspSignatureActiveParameter', { fg = colors.red })
 
 -- Noice
 vim.api.nvim_set_hl(0, 'NoiceCmdlinePopupBorder', { link = 'Float' })
-vim.api.nvim_set_hl(0, 'NoiceCmdlinePopupTitle', { link = 'TelescopeTitle' })
-vim.api.nvim_set_hl(0, 'NoiceCmdlineIcon', { link = 'TelescopeTitle' })
+vim.api.nvim_set_hl(0, 'NoiceCmdlinePopupTitleCmdline', { link = 'SnacksPickerTitle' })
+vim.api.nvim_set_hl(0, 'NoiceCmdlineIcon', { link = 'SnacksPickerTitle' })
 
 -- Lualine
 vim.api.nvim_set_hl(0, 'lualine_a_normal', { fg = colors.mauve })

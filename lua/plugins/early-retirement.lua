@@ -4,7 +4,5 @@ return {
   event = 'VeryLazy',
   opts = {
     retirementAgeMins = 15,
-    minimumBufferNum = 5,
-    notificationOnAutoClose = true,
   },
 }

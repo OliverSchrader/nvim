@@ -33,23 +33,6 @@ require('lazy').setup({
     opts = {},
   },
   {
-    'nvim-telescope/telescope.nvim',
-    branch = '0.1.x',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      'nvim-telescope/telescope-file-browser.nvim',
-      'nvim-telescope/telescope-ui-select.nvim',
-      'debugloop/telescope-undo.nvim',
-    },
-  },
-  {
-    'nvim-telescope/telescope-fzf-native.nvim',
-    build = 'make',
-    cond = function()
-      return vim.fn.executable 'make' == 1
-    end,
-  },
-  {
     'nvim-treesitter/nvim-treesitter',
     dependencies = {
       'nvim-treesitter/nvim-treesitter-textobjects',
@@ -67,7 +50,6 @@ require('neodev').setup()
 
 require 'settings.settings'
 require 'settings.keymaps'
-require 'settings.telescope'
 require 'settings.treesitter'
 require 'settings.lsp'
 require 'settings.cmp'
