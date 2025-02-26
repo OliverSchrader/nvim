@@ -27,7 +27,8 @@ vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
 vim.keymap.set('n', '<A-F>', '<cmd>lua require("conform").format()<CR>')
 
 -- Remap for current word search and replace
-vim.keymap.set('n', '<leader>sr', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = 'Buffer [S]earch and [R]eplace' })
+-- vim.keymap.set('n', '<leader>sr', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = 'Buffer [S]earch and [R]eplace' })
+vim.keymap.set('n', '<leader>sr', '<cmd>GrugFar<CR>', { desc = 'Search and Replace' })
 
 -- Remap to delete highlighted text into the void register and then paste
 vim.keymap.set('x', '<leader>p', [["_dP]])
@@ -68,6 +69,9 @@ vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, { desc = 'Open float
 
 -- LazyGit
 vim.api.nvim_set_keymap('n', '<leader>g', '<cmd>lua _ToggleLazyGit()<CR>', { noremap = true, silent = true })
+
+-- Yazi
+vim.api.nvim_set_keymap('n', '<leader>y', '<cmd>lua _ToggleYazi()<CR>', { noremap = true, silent = true })
 
 -- Note keymaps
 vim.keymap.set('n', '<leader>n', function()

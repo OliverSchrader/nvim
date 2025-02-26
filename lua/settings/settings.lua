@@ -87,8 +87,11 @@ vim.api.nvim_create_autocmd('FileType', {
 --   end,
 -- })
 
--- Custom LazyGit terminal
+
+-- Custom terminals
 local Terminal = require('toggleterm.terminal').Terminal
+
+-- LazyGit
 local lazygit = Terminal:new {
   cmd = 'lazygit',
   hidden = true,
@@ -96,6 +99,16 @@ local lazygit = Terminal:new {
 
 function _ToggleLazyGit()
   lazygit:toggle()
+end
+
+--Yazi
+local yazi = Terminal:new {
+  cmd = 'yazi',
+  hidden = true,
+}
+
+function _ToggleYazi()
+  yazi:toggle()
 end
 
 -- Refresh buffers after exiting LazyGit

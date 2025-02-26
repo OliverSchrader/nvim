@@ -226,6 +226,7 @@ return {
         Snacks.picker.todo_comments {
           focus = 'list',
           title = 'Todos',
+          exclude = { 'node_modules', 'coverage' }
         }
       end,
       desc = 'Todos',
