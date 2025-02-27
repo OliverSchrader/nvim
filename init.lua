@@ -22,7 +22,6 @@ require('lazy').setup({
   'nvim-tree/nvim-web-devicons',
   'tpope/vim-sleuth',
   'RRethy/vim-illuminate',
-  'mfussenegger/nvim-jdtls',
   'windwp/nvim-ts-autotag',
   {
     'folke/which-key.nvim',
