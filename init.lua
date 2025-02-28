@@ -51,7 +51,6 @@ require 'settings.settings'
 require 'settings.keymaps'
 require 'settings.treesitter'
 require 'settings.lsp'
-require 'settings.cmp'
 
 vim.cmd.colorscheme 'catppuccin'
 

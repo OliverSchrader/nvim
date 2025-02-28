@@ -75,10 +75,8 @@ vim.api.nvim_create_autocmd('BufWritePre', {
   end,
 })
 
--- Custom terminals
-local Terminal = require('toggleterm.terminal').Terminal
-
 -- LazyGit
+local Terminal = require('toggleterm.terminal').Terminal
 local lazygit = Terminal:new {
   cmd = 'lazygit',
   hidden = true,

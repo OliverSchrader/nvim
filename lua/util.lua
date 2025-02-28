@@ -16,10 +16,6 @@ function util.get_parent_project_name()
   local parent_dir = vim.fn.fnamemodify(project_directory, ':h') -- Get parent dir
   local parent_dir_name = vim.fn.fnamemodify(parent_dir, ':t')
 
-  vim.defer_fn(function()
-    print(parent_dir_name .. ' - ' .. project_name)
-  end, 1000)
-
   return parent_dir_name .. ' - ' .. project_name
 end
 

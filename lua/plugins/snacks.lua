@@ -115,7 +115,7 @@ return {
       '<leader>ff',
       function()
         Snacks.picker.files {
-          exclude = { 'node_modules', 'coverage' },
+          exclude = { 'node_modules', 'coverage', '.m2' },
           hidden = true,
           ignored = true,
         }
@@ -135,7 +135,7 @@ return {
       '<leader>fd',
       function()
         Snacks.picker.grep {
-          exclude = { 'node_modules', 'coverage', '*.lock' },
+          exclude = { 'node_modules', 'coverage', '*.lock', '.m2' },
           hidden = true,
           ignored = true,
         }
