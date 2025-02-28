@@ -206,7 +206,7 @@ return {
       '<leader>i',
       function()
         Snacks.picker.icons {
-          focus = 'list',
+          focus = 'input',
           layout = { preset = 'select' },
         }
       end,

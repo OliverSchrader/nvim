@@ -10,6 +10,7 @@ vim.api.nvim_set_hl(0, 'NeogitWinSeparator', { link = 'Float' })
 vim.api.nvim_set_hl(0, 'SnacksPickerTitle', { fg = colors.blue })
 vim.api.nvim_set_hl(0, 'SnacksPickerTotals', { fg = colors.blue })
 vim.api.nvim_set_hl(0, 'SnacksIndentScope', { fg = colors.mauve })
+vim.api.nvim_set_hl(0, 'SnacksDashboardKey', { fg = colors.mauve })
 
 -- LSP
 vim.api.nvim_set_hl(0, 'LspSignatureActiveParameter', { fg = colors.red })
