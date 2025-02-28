@@ -72,10 +72,3 @@ vim.api.nvim_set_keymap('n', '<leader>g', '<cmd>lua _ToggleLazyGit()<CR>', { nor
 
 -- Yazi
 vim.api.nvim_set_keymap('n', '<leader>y', '<cmd>lua _ToggleYazi()<CR>', { noremap = true, silent = true })
-
--- Note keymaps
-vim.keymap.set('n', '<leader>n', function()
-  require('global-note').toggle_note 'project_local'
-end, {
-  desc = 'Toggle global note',
-})
