@@ -3,12 +3,8 @@ return {
   config = function()
     require('colorizer').setup({
       '*',
-      css = {
-        css = true,
-      },
-      scss = {
-        css = true,
-      },
+      css = { css = true },
+      scss = { css = true },
     }, {
       mode = 'background',
     })

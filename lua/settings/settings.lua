@@ -1,54 +1,34 @@
 vim.o.number = true
 vim.o.relativenumber = true
-
 vim.o.signcolumn = 'yes'
-
 vim.o.hlsearch = false
-
 vim.o.mouse = ''
-
 vim.o.clipboard = 'unnamedplus'
-
 vim.o.breakindent = true
-
 vim.o.undofile = true
-
 vim.o.ignorecase = true
 vim.o.smartcase = true
-
 vim.o.showmode = false
-
 vim.o.updatetime = 250
 vim.o.timeout = true
 vim.o.timeoutlen = 300
-
 vim.o.completeopt = 'menuone,preview,noinsert'
-
 vim.o.foldmethod = 'expr'
 vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.o.foldlevel = 99
 vim.o.foldcolumn = '0'
+vim.o.scrolloff = 10
+vim.o.splitright = true
+vim.o.autoread = true
 
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
-
-vim.opt.fillchars = {
-  eob = ' ',
-}
-
-vim.o.scrolloff = 10
-
-vim.o.splitright = true
-
-vim.o.autoread = true
-
 vim.opt.showtabline = 1
 vim.opt.laststatus = 3
+vim.opt.fillchars = { eob = ' ' }
 
-vim.diagnostic.config {
-  float = { border = 'rounded' },
-}
+vim.diagnostic.config { float = { border = 'rounded' } }
 
 vim.loader.enable()
 

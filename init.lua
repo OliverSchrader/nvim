@@ -31,13 +31,6 @@ require('lazy').setup({
     'numToStr/Comment.nvim',
     opts = {},
   },
-  {
-    'nvim-treesitter/nvim-treesitter',
-    dependencies = {
-      'nvim-treesitter/nvim-treesitter-textobjects',
-    },
-    build = ':TSUpdate',
-  },
   { import = 'plugins' },
 }, {
   ui = {
@@ -49,7 +42,7 @@ require('neodev').setup()
 
 require 'settings.settings'
 require 'settings.keymaps'
-require 'settings.treesitter'
+require 'plugins.treesitter'
 require 'settings.lsp'
 
 vim.cmd.colorscheme 'catppuccin'
