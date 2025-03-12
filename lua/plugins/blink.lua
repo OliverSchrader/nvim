@@ -1,6 +1,7 @@
 return {
   'saghen/blink.cmp',
   dependencies = {
+    'L3MON4D3/LuaSnip',
     'rafamadriz/friendly-snippets',
     'xzbdmw/colorful-menu.nvim',
   },
@@ -9,8 +10,8 @@ return {
   ---@type blink.cmp.Config
   opts = {
     keymap = {
-      ['<Tab>'] = { 'snippet_forward', 'select_and_accept', 'fallback' },
-      ['<S-Tab>'] = { 'snippet_backward', 'show', 'show_documentation', 'hide_documentation' },
+      ['<Tab>'] = { 'select_and_accept', 'fallback' },
+      ['<S-Tab>'] = { 'show', 'show_documentation', 'hide_documentation' },
       ['<C-k>'] = { 'show_signature', 'hide_signature', 'fallback' },
       ['<A-k>'] = { 'select_prev', 'fallback' },
       ['<A-j>'] = { 'select_next', 'fallback' },
@@ -48,7 +49,8 @@ return {
       accept = {
         auto_brackets = {
           kind_resolution = {
-            blocked_filetypes = {},
+            enabled = true,
+            blocked_filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
           },
         },
       },

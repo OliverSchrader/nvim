@@ -147,6 +147,7 @@ return {
       function()
         Snacks.picker.grep_word {
           focus = 'list',
+          exclude = { 'node_modules', 'coverage', '*.lock', '.m2' },
         }
       end,
       desc = 'Find visual selection or word',
@@ -213,7 +214,7 @@ return {
       desc = 'Diagnostics',
     },
     {
-      '<leader>c',
+      '<leader>cf',
       function()
         Snacks.dashboard.pick('files', { cwd = vim.fn.stdpath 'config' })
       end,

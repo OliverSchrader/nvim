@@ -10,5 +10,16 @@ return {
         length = 3,
       },
     },
+    disabled_filetypes = {
+      'checkhealth',
+      'grug-far',
+      'help',
+      'lazy',
+      'lspinfo',
+      'mason',
+      'noice',
+      'notify',
+      'prompt',
+    },
   },
 }

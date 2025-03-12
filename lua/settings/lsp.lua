@@ -38,6 +38,7 @@ mason_lspconfig.setup {
 }
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 mason_lspconfig.setup_handlers {
   function(server_name)
@@ -47,7 +48,6 @@ mason_lspconfig.setup_handlers {
           diagnosticSeverity = 'Hint',
         },
       }
-
       return
     end
 

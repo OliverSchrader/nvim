@@ -38,13 +38,13 @@ vim.keymap.set('i', '<A-j>', '<Down>')
 vim.keymap.set('i', '<A-h>', '<Left>')
 vim.keymap.set('i', '<A-l>', '<Right>')
 
--- Remap half page jumps
-vim.keymap.set('n', '<A-k>', '<C-u>')
-vim.keymap.set('n', '<A-j>', '<C-d>')
+-- -- Remap half page jumps
+-- vim.keymap.set('n', '<A-k>', '<C-u>')
+-- vim.keymap.set('n', '<A-j>', '<C-d>')
 
 -- Remap to scroll buffer
-vim.keymap.set('n', '<A-e>', '<C-e>')
-vim.keymap.set('n', '<A-y>', '<C-y>')
+vim.keymap.set('n', '<A-k>', '<C-y>k')
+vim.keymap.set('n', '<A-j>', '<C-e>j')
 
 -- Remap to disable arrow keys
 vim.keymap.set('n', '<Up>', '<Nop>')

@@ -21,9 +21,10 @@ vim.o.scrolloff = 10
 vim.o.splitright = true
 vim.o.autoread = true
 
-vim.opt.tabstop = 2
-vim.opt.softtabstop = 2
-vim.opt.shiftwidth = 2
+-- vim.opt.tabstop = 2
+-- vim.opt.softtabstop = 2
+-- vim.opt.shiftwidth = 2
+
 vim.opt.showtabline = 1
 vim.opt.laststatus = 3
 vim.opt.fillchars = { eob = ' ' }
@@ -110,3 +111,15 @@ function _G.TabLine()
   end
   return tab_pages
 end
+
+-- Dealing with windows line endings
+-- vim.api.nvim_create_autocmd('BufWinEnter', {
+--   callback = function()
+--     local buffer = vim.api.nvim_get_current_buf()
+--     if vim.bo[buffer].modifiable and vim.bo[buffer].fileformat == 'unix' and vim.api.nvim_buf_get_name(buffer) ~= '' then
+--       vim.cmd 'set ff=dos'
+--       vim.cmd 'update'
+--     end
+--   end,
+--   pattern = '*',
+-- })
