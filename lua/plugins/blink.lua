@@ -48,8 +48,9 @@ return {
       },
       accept = {
         auto_brackets = {
+          enabled = false,
           kind_resolution = {
-            enabled = true,
+            enabled = false,
             blocked_filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
           },
         },
@@ -57,9 +58,13 @@ return {
     },
     appearance = { nerd_font_variant = 'mono' },
     sources = {
-      default = { 'lsp', 'path', 'snippets' },
+      default = { 'lsp', 'buffer', 'path' },
     },
-    fuzzy = { implementation = 'prefer_rust_with_warning' },
+    fuzzy = {
+      implementation = 'prefer_rust_with_warning',
+      use_frecency = true,
+      sorts = { 'exact', 'score', 'sort_text' },
+    },
     cmdline = {
       keymap = {
         ['<A-k>'] = { 'select_prev', 'fallback' },

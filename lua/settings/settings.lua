@@ -21,15 +21,23 @@ vim.o.scrolloff = 10
 vim.o.splitright = true
 vim.o.autoread = true
 
--- vim.opt.tabstop = 2
--- vim.opt.softtabstop = 2
--- vim.opt.shiftwidth = 2
+vim.opt.tabstop = 2
+vim.opt.softtabstop = 2
+vim.opt.shiftwidth = 2
 
 vim.opt.showtabline = 1
 vim.opt.laststatus = 3
 vim.opt.fillchars = { eob = ' ' }
 
-vim.diagnostic.config { float = { border = 'rounded' } }
+vim.diagnostic.config {
+  float = {
+    border = 'rounded',
+  },
+  -- virtual_lines = {
+  --   current_line = true,
+  -- },
+  virtual_text = true,
+}
 
 vim.loader.enable()
 

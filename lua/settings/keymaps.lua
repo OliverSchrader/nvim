@@ -6,8 +6,8 @@ vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = tr
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- Remap for switching between splits
-vim.keymap.set('n', '<A-h>', '<C-w>W', { desc = 'Switch Windows' })
-vim.keymap.set('n', '<A-l>', '<C-w>w', { desc = 'Switch Windows' })
+vim.keymap.set('n', '<A-[>', '<C-w>W', { desc = 'Switch Windows' })
+vim.keymap.set('n', '<A-]>', '<C-w>w', { desc = 'Switch Windows' })
 
 -- Remap to split a window vertically
 vim.keymap.set('n', '<A-v>', '<C-w>v', { desc = 'Split window vertically' })
@@ -39,8 +39,8 @@ vim.keymap.set('i', '<A-h>', '<Left>')
 vim.keymap.set('i', '<A-l>', '<Right>')
 
 -- -- Remap half page jumps
--- vim.keymap.set('n', '<A-k>', '<C-u>')
--- vim.keymap.set('n', '<A-j>', '<C-d>')
+vim.keymap.set('n', '<A-u>', '<C-u>')
+vim.keymap.set('n', '<A-d>', '<C-d>')
 
 -- Remap to scroll buffer
 vim.keymap.set('n', '<A-k>', '<C-y>k')

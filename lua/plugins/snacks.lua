@@ -22,8 +22,8 @@ local explorer = {
 }
 
 local keys = {
-  ['<C-l>'] = { 'vsplit', mode = { 'n', 'i' } },
-  ['<C-k>'] = { 'split', mode = { 'n', 'i' } },
+  ['<A-]>'] = { 'vsplit', mode = { 'n', 'i' } },
+  ['<A-[>'] = { 'split', mode = { 'n', 'i' } },
 }
 
 local picker = {
@@ -115,7 +115,7 @@ return {
       '<leader>ff',
       function()
         Snacks.picker.files {
-          exclude = { 'node_modules', 'coverage', '.m2' },
+          exclude = { 'node_modules', 'coverage', '.m2', '*.class' },
           hidden = true,
           ignored = true,
         }
@@ -135,7 +135,7 @@ return {
       '<leader>fd',
       function()
         Snacks.picker.grep {
-          exclude = { 'node_modules', 'coverage', '*.lock', '.m2' },
+          exclude = { 'node_modules', 'coverage', '*.lock', '.m2', '*.class' },
           hidden = true,
           ignored = true,
         }
@@ -147,7 +147,7 @@ return {
       function()
         Snacks.picker.grep_word {
           focus = 'list',
-          exclude = { 'node_modules', 'coverage', '*.lock', '.m2' },
+          exclude = { 'node_modules', 'coverage', '*.lock', '.m2', '*.class' },
         }
       end,
       desc = 'Find visual selection or word',
@@ -227,7 +227,7 @@ return {
         Snacks.picker.todo_comments {
           focus = 'list',
           title = 'Todos',
-          exclude = { 'node_modules', 'coverage' },
+          exclude = { 'node_modules', 'coverage', '*.class' },
         }
       end,
       desc = 'Todos',
