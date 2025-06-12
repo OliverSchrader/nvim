@@ -40,7 +40,7 @@ mason_lspconfig.setup {
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-mason_lspconfig.setup_handlers {
+mason_lspconfig.setup {
   function(server_name)
     if server_name == 'typos_lsp' then
       require('lspconfig').typos_lsp.setup {

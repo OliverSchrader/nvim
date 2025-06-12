@@ -16,6 +16,7 @@ if not vim.loop.fs_stat(lazypath) then
     lazypath,
   }
 end
+
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
@@ -23,14 +24,8 @@ require('lazy').setup({
   'tpope/vim-sleuth',
   'RRethy/vim-illuminate',
   'windwp/nvim-ts-autotag',
-  {
-    'folke/which-key.nvim',
-    opts = {},
-  },
-  {
-    'numToStr/Comment.nvim',
-    opts = {},
-  },
+  'folke/which-key.nvim',
+  'numToStr/Comment.nvim',
   { import = 'plugins' },
 }, {
   ui = {
