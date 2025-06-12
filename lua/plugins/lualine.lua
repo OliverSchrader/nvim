@@ -22,6 +22,8 @@ local clients_lsp = function()
       table.insert(c, '') -- no icon
     elseif client.name == 'jdtls' then
       table.insert(c, '')
+    elseif client.name == 'jsonls' then
+      table.insert(c, '')
     else
       table.insert(c, client.name)
     end

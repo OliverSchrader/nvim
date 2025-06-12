@@ -64,10 +64,7 @@ vim.keymap.set('v', '<Right>', '<Nop>')
 vim.keymap.set('i', 'jj', '<Esc>')
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
+vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, { desc = 'Diagnostics' })
 
 -- LazyGit
 vim.api.nvim_set_keymap('n', '<leader>g', '<cmd>lua _ToggleLazyGit()<CR>', { noremap = true, silent = true })
-
--- Yazi
-vim.api.nvim_set_keymap('n', '<leader>y', '<cmd>lua _ToggleYazi()<CR>', { noremap = true, silent = true })
