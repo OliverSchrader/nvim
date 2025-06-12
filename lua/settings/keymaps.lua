@@ -6,8 +6,8 @@ vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = tr
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- Remap for switching between splits
-vim.keymap.set('n', '<A-h>', '<C-w>W', { desc = 'Switch Windows' })
-vim.keymap.set('n', '<A-l>', '<C-w>w', { desc = 'Switch Windows' })
+vim.keymap.set('n', '<A-[>', '<C-w>W', { desc = 'Switch Windows' })
+vim.keymap.set('n', '<A-]>', '<C-w>w', { desc = 'Switch Windows' })
 
 -- Remap to split a window vertically
 vim.keymap.set('n', '<A-v>', '<C-w>v', { desc = 'Split window vertically' })
@@ -27,15 +27,10 @@ vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
 vim.keymap.set('n', '<A-F>', '<cmd>lua require("conform").format()<CR>')
 
 -- Remap for current word search and replace
--- vim.keymap.set('n', '<leader>sr', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = 'Buffer [S]earch and [R]eplace' })
 vim.keymap.set('n', '<leader>sr', '<cmd>GrugFar<CR>', { desc = 'Search and Replace' })
 
 -- Remap to delete highlighted text into the void register and then paste
 vim.keymap.set('x', '<leader>p', [["_dP]])
-
--- Remap to keep cursor centered during half page jumps
-vim.keymap.set('n', '<A-k>', '<C-u>zz')
-vim.keymap.set('n', '<A-j>', '<C-d>zz')
 
 -- Remap to move cursor in insert mode
 vim.keymap.set('i', '<A-k>', '<Up>')
@@ -43,9 +38,13 @@ vim.keymap.set('i', '<A-j>', '<Down>')
 vim.keymap.set('i', '<A-h>', '<Left>')
 vim.keymap.set('i', '<A-l>', '<Right>')
 
+-- -- Remap half page jumps
+vim.keymap.set('n', '<A-u>', '<C-u>')
+vim.keymap.set('n', '<A-d>', '<C-d>')
+
 -- Remap to scroll buffer
-vim.keymap.set('n', '<A-e>', '<C-e>')
-vim.keymap.set('n', '<A-y>', '<C-y>')
+vim.keymap.set('n', '<A-k>', '<C-y>k')
+vim.keymap.set('n', '<A-j>', '<C-e>j')
 
 -- Remap to disable arrow keys
 vim.keymap.set('n', '<Up>', '<Nop>')
@@ -72,10 +71,3 @@ vim.api.nvim_set_keymap('n', '<leader>g', '<cmd>lua _ToggleLazyGit()<CR>', { nor
 
 -- Yazi
 vim.api.nvim_set_keymap('n', '<leader>y', '<cmd>lua _ToggleYazi()<CR>', { noremap = true, silent = true })
-
--- Note keymaps
-vim.keymap.set('n', '<leader>n', function()
-  require('global-note').toggle_note 'project_local'
-end, {
-  desc = 'Toggle global note',
-})

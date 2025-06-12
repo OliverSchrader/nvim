@@ -12,6 +12,6 @@ return {
         link = 'Float',
       },
     },
-    shell = 'bash.exe',
+    -- shell = 'zsh',
   },
 }

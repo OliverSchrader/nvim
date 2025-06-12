@@ -16,29 +16,16 @@ if not vim.loop.fs_stat(lazypath) then
     lazypath,
   }
 end
+
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
   'nvim-tree/nvim-web-devicons',
   'tpope/vim-sleuth',
   'RRethy/vim-illuminate',
-  'mfussenegger/nvim-jdtls',
   'windwp/nvim-ts-autotag',
-  {
-    'folke/which-key.nvim',
-    opts = {},
-  },
-  {
-    'numToStr/Comment.nvim',
-    opts = {},
-  },
-  {
-    'nvim-treesitter/nvim-treesitter',
-    dependencies = {
-      'nvim-treesitter/nvim-treesitter-textobjects',
-    },
-    build = ':TSUpdate',
-  },
+  'folke/which-key.nvim',
+  'numToStr/Comment.nvim',
   { import = 'plugins' },
 }, {
   ui = {
@@ -50,9 +37,8 @@ require('neodev').setup()
 
 require 'settings.settings'
 require 'settings.keymaps'
-require 'settings.treesitter'
+require 'plugins.treesitter'
 require 'settings.lsp'
-require 'settings.cmp'
 
 vim.cmd.colorscheme 'catppuccin'
 
