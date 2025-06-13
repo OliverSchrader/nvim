@@ -29,7 +29,7 @@ vim.opt.showtabline = 1
 vim.opt.laststatus = 3
 vim.opt.fillchars = { eob = ' ' }
 
-vim.diagnostic.config {
+vim.diagnostic.config({
   float = {
     border = 'rounded',
   },
@@ -37,7 +37,7 @@ vim.diagnostic.config {
   --   current_line = true,
   -- },
   virtual_text = true,
-}
+})
 
 vim.loader.enable()
 
@@ -66,10 +66,10 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 
 -- LazyGit
 local Terminal = require('toggleterm.terminal').Terminal
-local lazygit = Terminal:new {
+local lazygit = Terminal:new({
   cmd = 'lazygit',
   hidden = true,
-}
+})
 
 function _ToggleLazyGit()
   lazygit:toggle()
@@ -80,14 +80,14 @@ vim.api.nvim_create_autocmd({ 'TermClose' }, {
   pattern = '*lazygit*',
   callback = function()
     vim.defer_fn(function()
-      vim.cmd 'checktime'
+      vim.cmd('checktime')
 
       for _, buf in ipairs(vim.api.nvim_list_bufs()) do
         if vim.api.nvim_buf_is_loaded(buf) and vim.bo[buf].buftype == '' then
           local bufname = vim.api.nvim_buf_get_name(buf)
           if bufname ~= '' and vim.fn.filereadable(bufname) == 1 then
             vim.api.nvim_buf_call(buf, function()
-              vim.cmd 'e!'
+              vim.cmd('e!')
             end)
           end
         end
@@ -106,7 +106,7 @@ vim.o.tabline = '%!v:lua.TabLine()'
 function _G.TabLine()
   local tab_pages = ''
   local padding = '   '
-  for i = 1, vim.fn.tabpagenr '$' do
+  for i = 1, vim.fn.tabpagenr('$') do
     local buf_list = vim.fn.tabpagebuflist(i)
     local buf_name = vim.fn.bufname(buf_list[1])
     local file_name = vim.fn.fnamemodify(buf_name, ':t')
