@@ -5,16 +5,16 @@ vim.g.loaded_netrwPlugin = 1
 vim.o.termguicolors = true
 
 -- Install package manager
-local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
+local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system {
+  vim.fn.system({
     'git',
     'clone',
     '--filter=blob:none',
     'https://github.com/folke/lazy.nvim.git',
     '--branch=stable',
     lazypath,
-  }
+  })
 end
 
 vim.opt.rtp:prepend(lazypath)
@@ -35,14 +35,14 @@ require('lazy').setup({
 
 require('neodev').setup()
 
-require 'settings.settings'
-require 'settings.keymaps'
-require 'plugins.treesitter'
-require 'settings.lsp'
+require('settings.settings')
+require('settings.keymaps')
+require('plugins.treesitter')
+require('settings.lsp')
 
-vim.cmd.colorscheme 'catppuccin'
+vim.cmd.colorscheme('catppuccin')
 
-require 'settings.themes.catppuccin.highlights'
+require('settings.themes.catppuccin.highlights')
 
 -- :h modeline
 -- vim: ts=2 sts=2 sw=2 et
