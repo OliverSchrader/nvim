@@ -33,9 +33,6 @@ vim.diagnostic.config({
   float = {
     border = 'rounded',
   },
-  -- virtual_lines = {
-  --   current_line = true,
-  -- },
   virtual_text = true,
 })
 
@@ -79,24 +76,11 @@ end
 vim.api.nvim_create_autocmd({ 'TermClose' }, {
   pattern = '*lazygit*',
   callback = function()
-    vim.defer_fn(function()
-      vim.cmd('checktime')
+    vim.cmd('checktime')
 
-      for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-        if vim.api.nvim_buf_is_loaded(buf) and vim.bo[buf].buftype == '' then
-          local bufname = vim.api.nvim_buf_get_name(buf)
-          if bufname ~= '' and vim.fn.filereadable(bufname) == 1 then
-            vim.api.nvim_buf_call(buf, function()
-              vim.cmd('e!')
-            end)
-          end
-        end
-      end
-
-      if package.loaded['gitsigns'] then
-        require('gitsigns').refresh()
-      end
-    end, 100)
+    if package.loaded['gitsigns'] then
+      require('gitsigns').refresh()
+    end
   end,
 })
 
