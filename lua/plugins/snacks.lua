@@ -52,6 +52,8 @@ local indent = {
   },
 }
 
+local picker_excluded_dirs = { 'node_modules', 'coverage', '.m2', '*.class', 'android', 'ios', '.expo' }
+
 return {
   'folke/snacks.nvim',
   priority = 1000,
@@ -78,9 +80,9 @@ return {
       desc = 'Snacks Pickers',
     },
     {
-      '<leader><leader>',
+      '<A-o>',
       function()
-        Snacks.picker.buffers {
+        Snacks.picker.buffers({
           current = false,
           focus = 'list',
           layout = { preset = 'select' },
@@ -91,14 +93,14 @@ return {
               },
             },
           },
-        }
+        })
       end,
       desc = 'Buffer List',
     },
     {
-      '<leader>e',
+      '<A-e>',
       function()
-        Snacks.explorer {
+        Snacks.explorer({
           git_status = true,
           git_untracked = true,
           exclude = { 'node_modules', 'coverage' },
@@ -107,48 +109,48 @@ return {
           focus = 'list',
           diagnostics_open = true,
           layout = { preset = 'default', preview = true },
-        }
+        })
       end,
       desc = 'File Explorer',
     },
     {
       '<leader>ff',
       function()
-        Snacks.picker.files {
-          exclude = { 'node_modules', 'coverage', '.m2', '*.class' },
+        Snacks.picker.files({
+          exclude = picker_excluded_dirs,
           hidden = true,
           ignored = true,
-        }
+        })
       end,
       desc = 'File Search',
     },
     {
       '<leader>/',
       function()
-        Snacks.picker.lines {
+        Snacks.picker.lines({
           layout = { preset = 'default' },
-        }
+        })
       end,
       desc = 'Buffer Fuzzy Search',
     },
     {
       '<leader>fd',
       function()
-        Snacks.picker.grep {
-          exclude = { 'node_modules', 'coverage', '*.lock', '.m2', '*.class' },
+        Snacks.picker.grep({
+          exclude = picker_excluded_dirs,
           hidden = true,
           ignored = true,
-        }
+        })
       end,
       desc = 'Grep',
     },
     {
       '<leader>fw',
       function()
-        Snacks.picker.grep_word {
+        Snacks.picker.grep_word({
           focus = 'list',
-          exclude = { 'node_modules', 'coverage', '*.lock', '.m2', '*.class' },
-        }
+          exclude = picker_excluded_dirs,
+        })
       end,
       desc = 'Find visual selection or word',
       mode = { 'n', 'x' },
@@ -156,9 +158,9 @@ return {
     {
       'gd',
       function()
-        Snacks.picker.lsp_definitions {
+        Snacks.picker.lsp_definitions({
           focus = 'list',
-        }
+        })
       end,
 
       desc = 'Goto Definition',
@@ -166,9 +168,9 @@ return {
     {
       'gr',
       function()
-        Snacks.picker.lsp_references {
+        Snacks.picker.lsp_references({
           focus = 'list',
-        }
+        })
       end,
       nowait = true,
       desc = 'References',
@@ -183,9 +185,9 @@ return {
     {
       '<leader>q',
       function()
-        Snacks.picker.diagnostics_buffer {
+        Snacks.picker.diagnostics_buffer({
           focus = 'list',
-        }
+        })
       end,
       desc = 'Diagnostics',
     },
@@ -206,17 +208,17 @@ return {
     {
       '<leader>i',
       function()
-        Snacks.picker.icons {
+        Snacks.picker.icons({
           focus = 'input',
           layout = { preset = 'select' },
-        }
+        })
       end,
-      desc = 'Diagnostics',
+      desc = 'Icons',
     },
     {
       '<leader>cf',
       function()
-        Snacks.dashboard.pick('files', { cwd = vim.fn.stdpath 'config' })
+        Snacks.dashboard.pick('files', { cwd = vim.fn.stdpath('config') })
       end,
       desc = 'Config',
     },
@@ -224,11 +226,11 @@ return {
       '<leader>ft',
       function()
         ---@diagnostic disable-next-line: undefined-field
-        Snacks.picker.todo_comments {
+        Snacks.picker.todo_comments({
           focus = 'list',
           title = 'Todos',
-          exclude = { 'node_modules', 'coverage', '*.class' },
-        }
+          exclude = picker_excluded_dirs,
+        })
       end,
       desc = 'Todos',
     },
