@@ -62,7 +62,7 @@ return {
     },
     fuzzy = {
       implementation = 'prefer_rust_with_warning',
-      use_frecency = true,
+      frequency = { enabled = true },
       sorts = { 'exact', 'score', 'sort_text' },
     },
     cmdline = {

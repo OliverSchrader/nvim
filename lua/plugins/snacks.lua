@@ -5,7 +5,7 @@ local dashboard = {
   preset = {
     keys = {
       { icon = ' ', key = 'r', desc = 'Restore Session', section = 'session' },
-      { icon = '󰙅 ', key = 'e', desc = 'Explorer', action = '<leader>e' },
+      { icon = '󰙅 ', key = 'e', desc = 'Explorer', action = '<A-e>' },
       { icon = ' ', key = 'f', desc = 'Find File', action = '<leader>ff' },
       { icon = ' ', key = 't', desc = 'Find Text', action = '<leader>fd' },
       { icon = ' ', key = '/', desc = 'Terminal', action = ':ToggleTerm' },

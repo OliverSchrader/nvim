@@ -7,15 +7,20 @@ return {
     flavour = 'frappe',
     transparent = true,
     transparent_background = true,
+    float = {
+      transparent = true,
+    },
     term_colors = true,
     show_end_of_buffer = false,
     no_italic = true,
     integrations = {
       mason = true,
+      flash = true,
       noice = true,
       notifier = true,
       notify = true,
       treesitter = true,
+      grug_far = true,
       illuminate = {
         enabled = true,
         lsp = false,
